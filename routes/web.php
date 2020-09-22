@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Software;
+use App\Rol;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +23,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
-	 return view('software.index');
+	 return view('layouts.main');
 });
-
-Route::resource('software','SoftwareController');
-
-
-
