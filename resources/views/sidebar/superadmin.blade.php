@@ -50,7 +50,12 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-sign-out-alt ml-3"></i> Cerrar Sesion</a>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt ml-3"></i> Cerrar Sesion</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                        </form>
                 </li>
             </ul>
         </nav>
