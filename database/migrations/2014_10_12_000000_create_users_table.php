@@ -19,8 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('apellidos');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('rol'); 
-            $table->integer('laboratorio');
             $table->string('estatus');
             $table->boolean('primer_ingreso')->nullable();
             $table->timestamp('fecha_baja')->nullable();

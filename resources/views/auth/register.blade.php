@@ -89,16 +89,8 @@
             <th colspan="3">Acciones</th>
         </thead>    
         <tbody> 
-          @foreach($users as $users)
-            <tr>
-                <td>{{$users['id']}}</td>
-                <td>{{$users['nombres']}}</td>
-                <td>{{$users['apellidos']}}</td>
-                <td>{{$users['email']}}</td>
-                <td>superadmin</td>
-                <td colspan="3"><button class="btn btn-sm btn-primary mx-1">Ver</button><button class="btn btn-sm btn-warning mx-1">Editar</button><button class="btn btn-sm btn-danger mx-1">Inactivar</button></td>
-            </tr>
-          @endforeach
+         
+        
         </tbody>    
     </table>
 </div>  
