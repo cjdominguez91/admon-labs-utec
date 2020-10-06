@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
      <link href="{{ asset('css/style.css') }}" rel="stylesheet">
      <script src="{{ asset(mix('js/app.js')) }}"></script>
@@ -18,7 +18,7 @@
 <body>
     <div class="wrapper">
         <!-- Sidebar  -->
-        @include('../sidebar/superadmin')
+        @include('../sidebar')
 
         <!-- Page Content  -->
         <div id="content">
@@ -43,127 +43,7 @@
                 <hr>
                 <!-- Fin del Titulo -->
                 <!-- Inicio del main -->
-                <div>
-                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-labs-tab" data-toggle="tab" href="#nav-labs" role="tab" aria-controls="nav-labs" aria-selected="true">Laboratorios</a>
-                    <a class="nav-item nav-link" id="nav-schedules-tab" data-toggle="tab" href="#nav-schedules" role="tab" aria-controls="nav-schedules-tab" aria-selected="false">Horarios</a>
-                  </div>
-                </div>
-                <div class="tab-content" id="nav-tabContent">
-                  <div class="tab-pane fade show active" id="nav-labs" role="tabpanel" aria-labelledby="nav-labs-tab">
-                    <div class="row d-flex align-items-end">
-                        <div class="col-2">
-                            <h5 class="mt-4">Filtros:</h5>
-                        </div>
-                        <div class="col-1 mb-1 text-secondary">
-                            <span class="material-icons">filter_alt</span>
-                        </div>
-                    </div>
-                    <div class="row ">
-                        <div class="col-md-3 col-sm-12">
-                            <select class="form-control" name="" id="">
-                                <option value="">Seleccionar Edificio</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 col-sm-12">
-                            <select class="form-control" name="" id="">
-                                <option value="">Seleccionar Dia</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 col-sm-12">
-                            <select class="form-control" name="" id="">
-                                <option value="">Seleccionar Horario</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 col-sm-12">
-                            <input type="text" class="form-control" name="" placeholder="Software">
-                        </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-md-3 col-sm-12 mt-5">
-                            <div class="card">
-                              <img src="img/card.png" class="card-img-top" alt="...">
-                              <div class="card-body card-body-labs">
-                                <h5 class="card-title">Laboratorio 2</h5>
-                                <p class="card-text">Edificio Simon Bolivar.</p>
-                                <a href="#" class="btn btn btn-outline-light">Ver información</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-5">
-                            <div class="card">
-                              <img src="img/card.png" class="card-img-top" alt="...">
-                              <div class="card-body card-body-labs">
-                                <h5 class="card-title">Laboratorio 2</h5>
-                                <p class="card-text">Edificio Simon Bolivar.</p>
-                                <a href="#" class="btn btn btn-outline-light">Ver información</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-5">
-                            <div class="card">
-                              <img src="img/card.png" class="card-img-top" alt="...">
-                              <div class="card-body card-body-labs">
-                                <h5 class="card-title">Laboratorio 2</h5>
-                                <p class="card-text">Edificio Simon Bolivar.</p>
-                                <a href="#" class="btn btn btn-outline-light">Ver información</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-5">
-                            <div class="card">
-                              <img src="img/card.png" class="card-img-top" alt="...">
-                              <div class="card-body card-body-labs">
-                                <h5 class="card-title">Laboratorio 2</h5>
-                                <p class="card-text">Edificio Simon Bolivar.</p>
-                                <a href="#" class="btn btn btn-outline-light">Ver información</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-5">
-                            <div class="card">
-                              <img src="img/card.png" class="card-img-top" alt="...">
-                              <div class="card-body card-body-labs">
-                                <h5 class="card-title">Laboratorio 2</h5>
-                                <p class="card-text">Edificio Simon Bolivar.</p>
-                                <a href="#" class="btn btn btn-outline-light">Ver información</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-5">
-                            <div class="card">
-                              <img src="img/card.png" class="card-img-top" alt="...">
-                              <div class="card-body card-body-labs">
-                                <h5 class="card-title">Laboratorio 2</h5>
-                                <p class="card-text">Edificio Simon Bolivar.</p>
-                                <a href="#" class="btn btn btn-outline-light">Ver información</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-5">
-                            <div class="card">
-                              <img src="img/card.png" class="card-img-top" alt="...">
-                              <div class="card-body card-body-labs">
-                                <h5 class="card-title">Laboratorio 2</h5>
-                                <p class="card-text">Edificio Simon Bolivar.</p>
-                                <a href="#" class="btn btn btn-outline-light">Ver información</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-3 mt-5">
-                            <div class="card">
-                              <img src="img/card.png" class="card-img-top" alt="...">
-                              <div class="card-body card-body-labs">
-                                <h5 class="card-title">Laboratorio 2</h5>
-                                <p class="card-text">Edificio Simon Bolivar.</p>
-                                <a href="#" class="btn btn btn-outline-light">Ver información</a>
-                              </div>
-                            </div>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="tab-pane fade" id="nav-schedules" role="tabpanel" aria-labelledby="nav-schedules-tab">...</div>
-                </div>
+                @yield('content')
                 <!-- fin del main --> 
             </div>
            <!-- fin del container --> 
