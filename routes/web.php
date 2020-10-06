@@ -38,3 +38,6 @@ Route::resource('catalogo/software', 'catalogo\SoftwareController');
 Route::resource('catalogo/laboratorio', 'catalogo\LaboratorioController');
 Route::get('/single/{id}', 'HomeController@single')->name('single');
 Route::post('catalogo/carrera/add_materia', 'catalogo\CarreraController@add_materia');
+
+
+Route::resource('catalogo/horario', 'catalogo\HorarioControler');

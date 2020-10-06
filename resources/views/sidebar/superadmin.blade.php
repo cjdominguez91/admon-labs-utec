@@ -71,7 +71,7 @@
                 </li>
 
                 <li>
-                    <a href="#"><i class="fas fa-calendar-alt ml-3"></i> Horarios</a>
+                    <a href="{{url('catalogo/horario/')}}"><i class="fas fa-calendar-alt ml-3"></i> Horarios</a>
                 </li>
                 <li>
                     <a href="#"><i class="fas fa-folder-open ml-3"></i> Practicas Libres</a>
