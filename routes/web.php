@@ -36,3 +36,6 @@ Route::resource('catalogo/materia', 'catalogo\MateriaController');
 Route::resource('catalogo/software', 'catalogo\SoftwareController');
 
 Route::post('catalogo/carrera/add_materia', 'catalogo\CarreraController@add_materia');
+
+
+Route::resource('catalogo/horario', 'catalogo\HorarioControler');
