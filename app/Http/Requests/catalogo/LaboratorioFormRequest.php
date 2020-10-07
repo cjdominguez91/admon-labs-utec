@@ -4,7 +4,7 @@ namespace App\Http\Requests\catalogo;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CarreraFormRequest extends FormRequest
+class LaboratorioFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class CarreraFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|max:1',
-            'facultad' => 'required'
+            'nombre' => 'required|max:100',
+            'ubicacion' => 'required|max:100',
+            'encargado' => 'required',
         ];
     }
 }

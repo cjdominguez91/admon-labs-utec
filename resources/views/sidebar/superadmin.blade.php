@@ -71,7 +71,7 @@
                 </li>
 
                 <li>
-                    <a href="#"><i class="fas fa-calendar-alt ml-3"></i> Horarios</a>
+                    <a href="{{url('catalogo/horario/')}}"><i class="fas fa-calendar-alt ml-3"></i> Horarios</a>
                 </li>
                 <li>
                 <a href="{{url('catalogo/practica/')}}"><i class="fas fa-book-reader ml-3"></i> Practica</a>
@@ -94,7 +94,12 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-sign-out-alt ml-3"></i> Cerrar Sesion</a>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt ml-3"></i> Cerrar Sesion</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                        </form>
                 </li>
             </ul>
         </nav>
@@ -103,7 +108,7 @@
         <div id="content">
 
             <nav class="navbar fixed-top">
-                <a class="navbar-brand ml-4" href="#"><img src="{{asset('img/utec_brand.png')}}" alt="" width="225"></a>
+                <a class="navbar-brand ml-4" href="{{route('home')}}"><img src="{{asset('img/utec_brand.png')}}" alt="" width="225"></a>
                 <button type="button" id="sidebarCollapse" class="btn btn-outline-light mr-3">
                     <i class="fas fa-align-justify"></i>
                 </button>
@@ -121,10 +126,10 @@
                 @yield('contenido')
 
                 <!-- fin del container -->
-
             </div>
             <footer class="text-light fixed-botton">
-                        
+                Copyright © 2020 Universidad Tecnológica de El Salvador - UTEC - San Salvador, El Salvador, C.A.
+            </footer>       
         </div>
         <div class="overlay"></div>
 

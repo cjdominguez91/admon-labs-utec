@@ -21,6 +21,7 @@ class CarreraController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index(Request $request)
     {
 
@@ -47,7 +48,7 @@ class CarreraController extends Controller
     }
 }
     public function store(CarreraFormRequest $request)
-    {
+    {   
         $carrera = new Carrera;
         $carrera->nombre = $request->get('nombre');
         $carrera->facultad = $request->get('facultad');
