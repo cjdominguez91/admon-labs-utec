@@ -34,5 +34,5 @@ Route::resource('catalogo/facultad', 'catalogo\FacultadController');
 Route::resource('catalogo/carrera', 'catalogo\CarreraController');
 Route::resource('catalogo/materia', 'catalogo\MateriaController');
 Route::resource('catalogo/software', 'catalogo\SoftwareController');
-
+Route::resource('catalogo/practica', 'catalogo\PracticaController');
 Route::post('catalogo/carrera/add_materia', 'catalogo\CarreraController@add_materia');
