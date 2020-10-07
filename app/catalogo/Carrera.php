@@ -25,10 +25,12 @@ class Carrera extends Model
     {
         return $this->belongsTo('App\catalogo\Facultad', 'facultad', 'id');
     }
-
-
-    public function carreraMaterias()
+    public function practicas()
     {
-        return $this->belongsToMany('App\catalogo\Materia','materia-carreras');
+        return $this->hasMany('App\catalogo\Practica', 'id_carreras');
     }
+
+
+
+
 }
