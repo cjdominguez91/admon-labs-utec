@@ -1,5 +1,5 @@
 @extends ('sidebar.superadmin')
-@section ('TituloVista',"Crear Facultad ")
+@section ('TituloVista',"Crear roles ")
 @section ('contenido')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 <div class="x_panel">
@@ -20,21 +20,21 @@
             <div class="x_content">
                 <br />
 
-                {!!Form::open(array('url'=>'catalogo/facultad','method'=>'POST','autocomplete'=>'off'))!!}
+                {!!Form::open(array('url'=>'catalogo/roles','method'=>'POST','autocomplete'=>'off'))!!}
                 {{Form::token()}}
                 <form class="form-horizontal">
                     <br>
                     <div class="form-group row">
                         <label class="control-label col-md-3" align="right">Nombre</label>
                         <div class="col-md-6">
-                            <input class="form-control" name="nombre" type="text" autofocus="true"
+                            <input class="form-control" name="name" type="text" autofocus="true"
                                 onblur="this.value = this.value.toUpperCase();">
                         </div>
                     </div>
 
                     <div class="form-group" align="center">
                         <button type="submit" class="btn btn-success">Aceptar</button>
-                        <a href="{{url('catalogo/facultad')}}"><button type="button"
+                        <a href="{{url('catalogo/roles')}}"><button type="button"
                                 class="btn btn-primary">Cancelar</button></a>
                     </div>
 

@@ -38,6 +38,7 @@ class Horario extends Model
         return $this->belongsTo('App\catalogo\Laboratorio');
     }
 
+
     public function materia()
     {
         return $this->belongsTo('App\catalogo\Materia');
@@ -52,5 +53,19 @@ class Horario extends Model
     {
         return $this->belongsTo('App\catalogo\Ciclo');
     }
+  /*
+    public function horario()
+    {
+        return $this->hasMany('App\catalogo\Practica', 'id_horarios');
+    }
+    public function materias()
+    {
+        return $this->belongsTo('App\catalogo\Materia', 'id_materia');
+    }
+
+    public function horas()
+    {
+        return $this->hasMany('App\catalogo\HorasClases', 'horario');
+    } */
 
 }
