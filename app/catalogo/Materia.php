@@ -27,6 +27,6 @@ class Materia extends Model
 
     public function horarios()
     {
-        return $this->hasMany('App\catalogo\Horario', 'id_materia');
+        $this->hasMany('App\catalogo\Horario', 'horario', 'materia_id');
     }
 }

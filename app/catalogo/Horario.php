@@ -14,25 +14,46 @@ class Horario extends Model
 
 
   protected $fillable = [
-        'inicio',
-        'final',
         'dia',
-        'ciclo',
-        'id_laboratorio',
-        'id_materia',
+        'hora_id',
+        'materia_id',
+        'ciclo_id',
+        'laboratorio_id',
+        'alerta_seminarios',
+        'clave',
         'timestamp',
-        'alerta_seminario'
+        'estado'
     ];
 
     protected $guarded = [];
 
-    public function laboratorios()
+   /* public function laboratorios()
     {
         ////Pendiente hacer Inversa de Relaciones
-        return $this->hasMany('App\catalogo\Laboratorio', 'horario');
+        return $this->belongsTo('App\catalogo\Laboratorio', 'horario', 'id');
+    }*/
+
+    public function laboratorio()
+    {
+        return $this->belongsTo('App\catalogo\Laboratorio');
     }
 
- 
+
+    public function materia()
+    {
+        return $this->belongsTo('App\catalogo\Materia');
+    }
+
+    public function hora()
+    {
+        return $this->belongsTo('App\catalogo\Hora');
+    }
+
+    public function ciclo()
+    {
+        return $this->belongsTo('App\catalogo\Ciclo');
+    }
+  /*
     public function horario()
     {
         return $this->hasMany('App\catalogo\Practica', 'id_horarios');
@@ -45,6 +66,6 @@ class Horario extends Model
     public function horas()
     {
         return $this->hasMany('App\catalogo\HorasClases', 'horario');
-    }
+    } */
 
 }

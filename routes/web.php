@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Laboratorio;
+use App\catalogo\Horario;
 use App\User;
 use App\catalogo\Carrera;
 
@@ -23,7 +23,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
-	  return Laboratorio::all();
+	  $horario = Horario::findOrFail(1);
+	  return $horario->laboratorio;
 	  
 });
 
@@ -42,9 +43,8 @@ Route::get('/single/{id}', 'HomeController@single')->name('single');
 Route::post('catalogo/carrera/add_materia', 'catalogo\CarreraController@add_materia');
 Route::post('catalogo/rol/add_permiso', 'catalogo\RolePermissionController@add_permiso');
 Route::post('catalogo/roles/delete_permiso', 'catalogo\RolePermissionController@delete_permiso');
-
-
 Route::resource('catalogo/horario', 'catalogo\HorarioControler');
-
+Route::resource('catalogo/horas', 'catalogo\HoraControler');
 //para combos
 Route::get('catalogo/horas_clases/combo/{id}', 'catalogo\HorasClasesController@getHorasClases');
+
