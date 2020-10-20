@@ -28,6 +28,7 @@ class RolesAndPermissions extends Seeder
 
        Permission::create( ['name' => 'create permissions'] );
        Permission::create( ['name' => 'read permissions'] );
+       
        Permission::create( ['name' => 'edit permissions'] );
        Permission::create( ['name' => 'delete permissions'] );
 

@@ -1,15 +1,7 @@
 @extends ('sidebar.superadmin')
+@section ('TituloVista' , 'Carreras')
 @section ('contenido')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
-
-<div class="row mt-5">
-    <div class="col">
-        <h2 class="m-0 p-0">Carrera</h2>
-    </div>
-    <div class="col-1 d-flex justify-content-center align-items-end"><a class="m-0 p-0 text-secondary" href="#"><span
-                class="material-icons">home</span></a></div>
-</div>
-<hr>
 <!-- Fin del Titulo -->
 <!-- Inicio del main -->
 

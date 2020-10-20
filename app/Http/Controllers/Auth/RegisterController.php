@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\Mail\RegisterConfirmation;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -36,11 +38,6 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -53,7 +50,6 @@ class RegisterController extends Controller
             'nombres' => ['required', 'string', 'max:255'],
             'apellidos' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -65,12 +61,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $clave = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 20);
+        $nombre = $data['nombres']." ".$data['apellidos'];
+        $datamsg = ['nombre' => $nombre, 'email' => $data['email'], 'clave' => $clave];
+        $user = User::create([
             'nombres' => $data['nombres'],
             'apellidos' => $data['apellidos'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($clave),
             'estatus' => 'A',
+            'primer_ingreso' => 0,
+            'avatar' => 'user.png',
         ]);
+        Mail::to($data['email'])->queue(new RegisterConfirmation($datamsg));
+        $user->assignRole($data['rol']);
+
     }
 }

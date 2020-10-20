@@ -38,8 +38,18 @@
             </div>
             <div class="user-info text-center">
                 <img src="{{asset('img/user.png')}}" class="img user-img" alt="user-image"><br>
-                <b><span>Carlos Chavarria</span></b><br>
-                <span>superadmin</span>
+                <b><span>carlos Chavarria</span></b><br>
+                <span>
+                    Administrador
+                </span>
+
+                {{-- <img src="{{asset('img/user.png')}}" class="img user-img" alt="user-image"><br>
+                <b><span>{{ auth()->user()->nombres." ".auth()->user()->apellidos }}</span></b><br>
+                <span>
+                    @foreach(auth()->user()->usersRoles as $rol)
+                        {{ $rol->name}}
+                    @endforeach
+                </span> --}}
             </div>
             <ul class="list-unstyled components">
                 <p class="text-center">Menu principal</p>

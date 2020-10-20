@@ -24,7 +24,7 @@ class CarreraFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|max:1',
+            'nombre' => 'required|max:100   ',
             'facultad' => 'required'
         ];
     }

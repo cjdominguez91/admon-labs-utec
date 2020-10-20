@@ -32,7 +32,7 @@ class LaboratorioController extends Controller
            // dd($materias);
            
             } else {
-               return view('home');
+               return abort('403');
            }
         }
     }

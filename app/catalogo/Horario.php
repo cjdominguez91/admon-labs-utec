@@ -26,10 +26,9 @@ class Horario extends Model
 
     protected $guarded = [];
 
-    public function laboratorios()
+    public function laboratorio()
     {
-        ////Pendiente hacer Inversa de Relaciones
-        return $this->hasMany('App\catalogo\Laboratorio', 'horario');
+        return $this->belongsTo('App\catalogo\Laboratorio');
     }
 
     public function materias()

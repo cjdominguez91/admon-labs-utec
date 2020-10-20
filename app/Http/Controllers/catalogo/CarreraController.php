@@ -15,11 +15,14 @@ use App\User;
 use DB;
 use Carbon\Carbon;
 
+
+
 class CarreraController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('firstlogin');
     }
 
     public function index(Request $request)
@@ -33,7 +36,7 @@ class CarreraController extends Controller
             return view('catalogo.carrera.index', ["carreras" => $carreras]);
         } else {
             // abort(403);
-            return view('home');
+            return  redirect('/home');
         }
     }
 }

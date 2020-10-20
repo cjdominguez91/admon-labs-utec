@@ -20,7 +20,7 @@ class horarioControler extends Controller
     public function index()
     {
         $horarios = Horario::get();
-        //echo "Hola desde horarioControler";
+            //echo "Hola desde horarioControler";
         return view('catalogo.laboratorio.custom', ["horarios"=>$horarios]);
     }
 

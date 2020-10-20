@@ -1,8 +1,15 @@
 <?php
+namespace App\Http\Controllers\catalogo;
 
-namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\User;
+use Illuminate\Support\Facades\Redirect;
+use App\Role;
+use DB;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -13,7 +20,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        if (auth()->user()->can('read users')) {
+            $usuarios = User::with('usersRoles')->get();
+            return view('catalogo.user.index', ["usuarios" => $usuarios]);
+        } else {
+            return 'Error';
+        }
     }
 
     /**
@@ -23,7 +35,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        if (auth()->user()->can('create users')) {
+        $roles = Role::all();
+        return view("catalogo.user.create", ["roles" => $roles]);
+        } else {
+            // abort(403);
+            return view('home');
+        }
     }
 
     /**
@@ -45,7 +63,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('catalogo.user.show',compact('user'));
     }
 
     /**
@@ -55,8 +74,10 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        $roles = Role::all();
+        $user = User::findOrFail($id);
+        return view('catalogo.user.edit',['user' => $user , 'roles' => $roles]);
     }
 
     /**
@@ -68,7 +89,24 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $name = 'user.png';
+
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $name = time().$file->getClientOriginalName(); 
+            $file->move(public_path().'/img/', $name);
+        }
+
+        $usuario = User::findOrFail($id);
+        $usuario->nombres = $request->get('nombres');
+        $usuario->apellidos = $request->get('apellidos');
+        $usuario->email = $request->get('email');
+        $usuario->avatar = $name;    
+        $usuario->update();
+        alert()->info('El registro ha sido modificado correctamente');
+        return redirect('catalogo/user/' . $id . '/edit');
+
+
     }
 
     /**
@@ -79,6 +117,28 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->estatus = 'I';
+        $user->fecha_baja = Carbon::now();
+        $user->update();
+        
     }
+
+    public function firstLogin(){
+        $user = User::findOrFail(auth()->user()->id);
+        return view('auth.firstLogin',['user' => $user]);
+    }
+
+    public function setPass(Request $request, $id){
+        $request->validate([
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        $usuario = User::findOrFail($id);
+        $usuario->password = Hash::make($request->get('password'));
+        $usuario->primer_ingreso = 1;
+        $usuario->update();
+        Auth::logout();
+        return redirect('/login');
+    }
+
 }

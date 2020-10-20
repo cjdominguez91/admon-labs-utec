@@ -44,7 +44,7 @@
                     <img src="img/card.png" class="card-img-top" alt="...">
                     <div class="card-body card-body-labs">
                       <h5 class="card-title">{{$laboratorio->nombre}}</h5>
-                      <p class="card-text">{{Str::limit($laboratorio->ubicacion, 40)}}.</p>
+                      <p class="card-text">{{Str::limit($laboratorio->ubicacion, 25)}}.</p>
                       <a href="{{route('single',$laboratorio->id)}}" class="btn btn btn-outline-light">Ver información</a>
                     </div>
                   </div>

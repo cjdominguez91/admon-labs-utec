@@ -18,21 +18,36 @@
 <body>
     <div class="wrapper">
         <!-- Sidebar  -->
-        @include('../sidebar')
+
+            @if (Route::has('login'))
+                    @auth
+                        @include('../sidebar')
+                    @endauth
+            @endif
+       
 
         <!-- Page Content  -->
         <div id="content">
             <nav class="navbar fixed-top" hidden>
                 <a class="navbar-brand ml-4" href="#"><img src="img/utec_brand.png" alt="" width="225"></a>
-                <button type="button" id="sidebarCollapse" class="btn btn-outline-light mr-3">
-                    <i class="fas fa-align-justify"></i>
-                </button>
+                @if (Route::has('login'))
+                    @auth
+                        <button type="button" id="sidebarCollapse" class="btn btn-outline-light mr-3">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                    @endauth
+                @endif
             </nav>
             <div class="jumbotron-fluid d-flex justify-content-between align-items-start">
                 <a class="navbar-brand ml-4" href="#"><img src="img/utec_brand.png" alt="" width="225"></a>
-                <button type="button" id="sidebarCollapse2" class="btn btn-outline-light mt-2 mr-3">
-                    <i class="fas fa-align-justify"></i>
-                </button>
+                @if (Route::has('login'))
+                    @auth
+                        <button type="button" id="sidebarCollapse2" class="btn btn-outline-light mt-2 mr-3">
+                        <i class="fas fa-align-justify"></i>
+                        </button>
+                    @endauth
+                @endif
+                
             </div>
             <!-- Inicio del Container-->
             <div class="container-fluid mt-0">

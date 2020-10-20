@@ -44,14 +44,13 @@
                     <div class="col-md-6">
                         <select class="form-control" name="facultad">
                             @foreach($facultades as $obj)
-                            @if($obj->id == $carrera->facultad)
-                            <option value="{{$obj->id}}" selected>{{$obj->nombre}}</option>
-                            @else
-                            <option value="{{$obj->id}}">{{$obj->nombre}}</option>
-                            @endif
+                                @if($obj->id == $carrera->facultad)
+                                <option value="{{$obj->id}}" selected>{{$obj->nombre}}</option>
+                                @else
+                                <option value="{{$obj->id}}">{{$obj->nombre}}</option>
+                                @endif
                             @endforeach
                         </select>
-
                     </div>
                 </div>
 
@@ -64,54 +63,6 @@
             </form>
 
             {!!Form::close()!!}
-
-
-            <form action="../../carrera/add_materia" method="POST">
-                {{Form::token()}}
-
-                <div class="col-md-3 col-sm-12 col-xs-12"></div>
-                <div class="col-md-6 col-sm-12 col-xs-12">
-                    <input type="hidden" name="id" value="{{$carrera->id}}">
-                    <select name="materias" class="form-control">
-                        @foreach ($materias as $obj)
-                        <option value="{{$obj->id}}">{{$obj->nombre}}</option>
-                        @endforeach
-                    </select>
-
-                </div>
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <input type="submit" value="Agregar materia" class="btn btn-primary">
-                </div>
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    &nbsp;
-                </div>
-
-                <div class="col-md-3 col-sm-12 col-xs-12"></div>
-                <div class="col-md-6 col-sm-12 col-xs-12">
-                    <table id="datatable" class="table table-striped table-bordered">
-                        <thead class="text-light">
-                            <th>id</th>
-                            <th>Nombre</th>
-                        </thead>
-                        <tbody>
-                            @foreach ($materias_carrera as $obj)
-                            <tr>
-                                <td align="center">{{ $obj->id}}</td>
-                                <td>{{ $obj->nombre}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-
-                </div>
-
-
-
-            </form>
-
-
-
         </div>
         @include('sweet::alert')
     </div>

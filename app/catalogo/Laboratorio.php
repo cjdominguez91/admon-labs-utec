@@ -28,5 +28,10 @@ protected $guarded = [];
         return $this->belongsTo('App\User');
     }
 
+    public function horarios()
+    {
+        $this->hasMany('App\catalogo\Horario','horario', 'laboratorio_id');
+    }
+
 
 }

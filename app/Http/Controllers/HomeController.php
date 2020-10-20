@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\catalogo\Laboratorio;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -18,10 +19,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    public function __construct()
+    {
+            $this->middleware('firstlogin');
+    }
+
     public function index(Request $request)
     {
         if ($request) {
-    
+            $this->middleware('firstlogin');
             $laboratorios = Laboratorio::with('user')->get();
             return view('home', ["laboratorios" => $laboratorios]);
         }
