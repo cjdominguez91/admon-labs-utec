@@ -32,11 +32,19 @@ class Horario extends Model
         return $this->hasMany('App\catalogo\Laboratorio', 'horario');
     }
 
+ 
+    public function horario()
+    {
+        return $this->hasMany('App\catalogo\Practica', 'id_horarios');
+    }
     public function materias()
     {
-        ////Pendiente hacer Inversa de Relaciones
-        return $this->hasOne('App\catalogo\Materia', 'horario');
+        return $this->belongsTo('App\catalogo\Materia', 'id_materia');
     }
 
+    public function horas()
+    {
+        return $this->hasMany('App\catalogo\HorasClases', 'horario');
+    }
 
 }
