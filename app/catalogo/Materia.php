@@ -24,4 +24,10 @@ class Materia extends Model
     {
         return $this->belongsToMany('App\catalogo\Carrera', 'materia-carreras');
     }
+
+
+    public function horarios()
+    {
+        $this->hasMany('App\catalogo\Horario', 'horario', 'materia_id');
+    }
 }

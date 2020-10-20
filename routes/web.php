@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Laboratorio;
+use App\catalogo\Horario;
 use App\User;
 use App\catalogo\Carrera;
 
@@ -23,7 +23,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
-	  return Laboratorio::all();
+	  $horario = Horario::findOrFail(1);
+	  return $horario->laboratorio;
 	  
 });
 
@@ -41,3 +42,4 @@ Route::post('catalogo/carrera/add_materia', 'catalogo\CarreraController@add_mate
 
 
 Route::resource('catalogo/horario', 'catalogo\HorarioControler');
+Route::resource('catalogo/horas', 'catalogo\HoraControler');
