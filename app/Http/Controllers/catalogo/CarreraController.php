@@ -81,6 +81,7 @@ class CarreraController extends Controller
         $carrera->update();
         alert()->info('El registro ha sido modificado correctamente');
         return redirect('catalogo/carrera/' . $id . '/edit');
+    
     }
     public function destroy($id)
     {

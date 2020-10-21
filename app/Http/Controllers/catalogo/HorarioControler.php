@@ -5,13 +5,29 @@ namespace App\Http\Controllers\catalogo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\catalogo\Horario;
+use App\catalogo\Laboratorio;
+use App\catalogo\Materia;
+use App\catalogo\Hora;
+use App\catalogo\Ciclo;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\catalogo\HorarioFormRequest;
 use DB;
 use Carbon\Carbon;
 
+
+
+
+
 class horarioControler extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +35,11 @@ class horarioControler extends Controller
      */
     public function index()
     {
-        $horarios = Horario::get();
-            //echo "Hola desde horarioControler";
-        return view('catalogo.laboratorio.custom', ["horarios"=>$horarios]);
+        $horas = Hora::get();
+        $ciclos = Ciclo::get();
+        $materias = Materia::get();
+        $horarios = Horario::with('laboratorio', 'materia', 'hora', 'ciclo')->get();
+        return view('catalogo.horario.custom', ["horarios"=>$horarios, "ciclos"=>$ciclos, "materias"=>$materias, "horas"=>$horas]);
     }
 
     /**
@@ -43,17 +61,26 @@ class horarioControler extends Controller
     public function store(Request $request)
     {
         $horario = new Horario;
-        $horario->inicio = $request->get('inicio');
-        $horario->final = $request->get('final');
         $horario->dia = $request->get('dia');
-        $horario->ciclo = $request->get('ciclo');
-        $horario->id_laboratorio = 1;
-        $horario->id_materia = 1;
+        $horario->hora_id = $request->get('horas');
+        $horario->materia_id = $request->get('materia');
+        $horario->ciclo_id = $request->get('ciclo');
+        $horario->laboratorio_id = $request->get('laboratorio');
+        $horario->alerta_seminarios = "";
+        $horario->clave = "d-".$request->get('dia')."-h-".$request->get('horas')."-c-".$request->get('ciclo')."-L-".$request->get('laboratorio');
+        $horario->estado = 1;
         $horario->timestamp = Carbon::now(); 
-        $horario->alerta_seminario = "";
-        return $horario->save();
-        // alert()->success('El registro ha sido agregado correctamente');
-        // return Redirect::to('catalogo/horario/create');
+      
+        if( count(Horario::where('clave', $horario->clave)->get() ) > 0 )
+        {
+            alert()->error('No puede ingresar horario, debido que ya existe para este laboratorio');
+        }
+        else
+        {
+            $horario->save();
+            alert()->success('El registro ha sido agregado correctamente'); 
+        }
+        return Redirect::to('catalogo/horario');
     }
 
     /**
@@ -75,7 +102,14 @@ class horarioControler extends Controller
      */
     public function edit($id)
     {
-        //
+        $horas = Hora::get();
+        $ciclos = Ciclo::get();
+        $materias = Materia::get();
+        $horarios = Horario::with('laboratorio', 'materia', 'hora', 'ciclo')->get();
+        $horariosEdit = Horario::findOrFail($id);
+        return view("catalogo.horario.custom", ["horariosEdit" => $horariosEdit, "horarios"=>$horarios, "ciclos"=>$ciclos, "materias"=>$materias, "horas"=>$horas]);            
+            alert()->error('Acceso Denegado. Este horario esta inhabilitado');
+
     }
 
     /**
@@ -87,7 +121,26 @@ class horarioControler extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $horario = Horario::findOrFail($id);
+        $horario->dia = $request->get('dia');
+        $horario->hora_id = $request->get('horas');
+        $horario->materia_id = $request->get('materia');
+        $horario->ciclo_id = $request->get('ciclo');
+        $horario->alerta_seminarios = $request->get('alerta_seminarios');
+        $horario->clave = "d-".$request->get('dia')."-h-".$request->get('horas')."-c-".$request->get('ciclo')."-L-".$request->get('laboratorio');
+        
+        if( count(Horario::where('clave', $horario->clave)->get() ) > 1 )
+        {
+            alert()->error('No puede actualizar horario, debido que ya existe para este laboratorio');
+        }
+        else
+        {
+            $horario->update();
+            alert()->info('El registro ha sido modificado correctamente');
+        } 
+    
+
+        return redirect('catalogo/horario/');
     }
 
     /**
@@ -97,6 +150,16 @@ class horarioControler extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        $horario = Horario::findOrFail($id);
+        $horario->delete();
+        alert()->error('El registro ha sido inhabilitado correctamente');
+        return Redirect::to('catalogo/horario');
+    }
+
+
+
+        public function actualizarEquipo(Request $request, $id)
     {
         //
     }

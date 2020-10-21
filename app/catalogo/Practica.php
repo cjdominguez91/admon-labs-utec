@@ -27,6 +27,11 @@ class Practica extends Model
         return $this->belongsTo('App\catalogo\Carrera', 'carrera', 'id');
     }
 
+    public function horarios()
+    {
+        return $this->belongsTo('App\catalogo\Horario', 'horario', 'horas_id');
+    }
+
    
     
 

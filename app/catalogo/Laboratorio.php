@@ -21,17 +21,16 @@ class Laboratorio extends Model
         'user_id',
     ];
 
-protected $guarded = [];
+    protected $guarded = [];
 
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
+
     public function horarios()
     {
         $this->hasMany('App\catalogo\Horario','horario', 'laboratorio_id');
     }
-
-
 }

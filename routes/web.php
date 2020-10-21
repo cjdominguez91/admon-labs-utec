@@ -6,6 +6,9 @@ use App\Role;
 use App\catalogo\Horario;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\User;
+use App\catalogo\Carrera;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,9 +27,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
+
 	return Carbon::now();
 	  // $horario = Horario::findOrFail(1);
 	  // return $horario->laboratorio;
+	  $horario = Horario::findOrFail(1);
+	  return $horario->laboratorio;
+	 
 });
 
 Route::resource('software','SoftwareController');
@@ -41,9 +48,17 @@ Route::resource('catalogo/carrera', 'catalogo\CarreraController');
 Route::resource('catalogo/materia', 'catalogo\MateriaController');
 Route::resource('catalogo/software', 'catalogo\SoftwareController');
 Route::resource('catalogo/practica', 'catalogo\PracticaController');
+Route::resource('catalogo/roles', 'catalogo\RolesController');
 Route::resource('catalogo/laboratorio', 'catalogo\LaboratorioController');
 Route::get('/single/{id}', 'HomeController@single')->name('single');
 Route::get('/confirmation', 'catalogo\UserController@firstLogin')->name('confirmation');
 Route::put('/end-register/{id}', 'catalogo\UserController@setPass')->name('end-register');
 Route::post('catalogo/carrera/add_materia', 'catalogo\CarreraController@add_materia');
 Route::resource('catalogo/horario', 'catalogo\HorarioControler');
+Route::post('catalogo/rol/add_permiso', 'catalogo\RolePermissionController@add_permiso');
+Route::post('catalogo/roles/delete_permiso', 'catalogo\RolePermissionController@delete_permiso');
+Route::resource('catalogo/horario', 'catalogo\HorarioControler');
+Route::resource('catalogo/horas', 'catalogo\HoraControler');
+//para combos
+Route::get('catalogo/horas_clases/combo/{id}', 'catalogo\HorasClasesController@getHorasClases');
+

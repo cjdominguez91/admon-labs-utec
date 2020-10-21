@@ -65,6 +65,44 @@
                 </div>
 
 
+
+
+                <div class="form-group row">
+                    <label class="control-label col-md-3" align="right">horario</label>
+                    <div class="col-md-6">
+                        <select class="form-control" id="id_horarios" name="id_horarios">
+                            @foreach($horario as $obj)
+                            @if($practica->id_horarios == $obj->id)
+                            <option value="{{$obj->id}}" selected>{{$obj->dia}} - {{$obj->materias->nombre}}</option>
+                            @else
+                            <option value="{{$obj->id}}">{{$obj->dia}} - {{$obj->materias->nombre}}</option>
+                            @endif
+                            @endforeach
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-md-3" align="right">horario clase</label>
+                    <div class="col-md-6">
+                        <select class="form-control" id="id_horas_clase" name="id_horas_clase">
+
+                            @foreach($horas_clases as $obj)
+
+                            <option value="{{$obj->id}}">{{$obj->hora_inicio}} - {{$obj->hora_fin}}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
                 <div class="form-group" align="center">
                     <button class="btn btn-success" type="submit">Guardar</button>
                     <a href="{{url('catalogo/practica')}}"><button type="button" class="btn btn-primary">Cancelar</button></a>
@@ -81,5 +119,33 @@
         </div>
         @include('sweet::alert')
     </div>
+    <!-- jQuery -->
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //combo para Horarios
+            $("#id_horarios").change(function() {
+                // var para la Horarios                            
+                var Horarios = $(this).val();
+
+                //funcionpara las municipios
+                $.get('../../horas_clases/combo/' + Horarios, function(data) {
+                    //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
+                    console.log(data);
+                    var _select = ''
+                    for (var i = 0; i < data.length; i++)
+                        _select += '<option value="' + data[i].id + '">' + data[i].hora_inicio + ' - ' + data[i].hora_fin + '</option>';
+
+                    $("#id_horas_clase").html(_select);
+
+                });
+
+            });
+        });
+    </script>
+
 </div>
 @endsection

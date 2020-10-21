@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\catalogo\Practica;
-
+use App\catalogo\Horario;
 use App\catalogo\Carrera;
-
+use App\catalogo\HorasClases;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\catalogo\PracticaFormRequest;
 use App\Role;
@@ -28,34 +28,37 @@ class PracticaController extends Controller
         if ($request) {
 
             if (auth()->user()->can('read practicas')) {
-                
-            $practicas = Practica::with('carreras')->get();
 
-            // dd($carreras);
-            return view('catalogo.practica.index', ["practicas" => $practicas]);
+                $practicas = Practica::with('carreras')->get();
+
+                // dd($carreras);
+                return view('catalogo.practica.index', ["practicas" => $practicas]);
+            } else {
+                // abort(403);
+                return view('home');
+            }
+        }
+    }
+    public function create()
+    {
+        if (auth()->user()->can('create practicas')) {
+            $carreras = Carrera::get();
+            $horario = Horario::with('materias')->get();
+
+            return view("catalogo.practica.create", ["carreras" => $carreras, "horario" => $horario]);
         } else {
             // abort(403);
             return view('home');
         }
     }
-}
-    public function create()
-    {
-        if (auth()->user()->can('create practicas')) {
-        $carreras = Carrera::get();
-        return view("catalogo.practica.create", ["carreras" => $carreras]);
-    } else {
-        // abort(403);
-        return view('home');
-    }
-}
     public function store(PracticaFormRequest $request)
     {
         $practica = new Practica;
         $practica->fecha = $request->get('fecha');
         $practica->asistencia = $request->get('asistencia');
-        $practica->id_carreras= $request->get('id_carreras');
-       
+
+        $practica->id_carreras = $request->get('id_carreras');
+        $practica->id_horarios = $request->get('id_horarios');
         $practica->timestamp = Carbon::now();
         $practica->save();
         alert()->success('El registro ha sido agregado correctamente');
@@ -70,19 +73,20 @@ class PracticaController extends Controller
         $practica = Practica::findOrFail($id);
         $carrera = Carrera::get();
 
-        //dd($carrera );
-       
-        
+        $horas_clases = HorasClases::where('id_horario', '=', $practica->id_horarios)->get();
 
-        return view("catalogo.practica.edit", ["practica" => Practica::findOrFail($id), "carrera" => $carrera]);
+        $horario = Horario::with('materias')->get();
+
+        return view("catalogo.practica.edit", ["practica" => $practica, Practica::findOrFail($id), "carrera" => $carrera, "horario" => $horario, "horas_clases" => $horas_clases]);
     }
     public function update(PracticaFormRequest $request, $id)
     {
+
         $practica = Practica::findOrFail($id);
         $practica->fecha = $request->get('fecha');
         $practica->asistencia = $request->get('asistencia');
         $practica->id_carreras = $request->get('carrera');
-     
+        $practica->id_horarios = $request->get('id_horarios');
         $practica->update();
         alert()->info('El registro ha sido modificado correctamente');
         return redirect('catalogo/practica/' . $id . '/edit');
@@ -95,7 +99,7 @@ class PracticaController extends Controller
         return Redirect::to('catalogo/practica');
     }
 
-   /* public function add_materia(Request $request)
+    /* public function add_materia(Request $request)
     {
         $carrera = Carrera::findOrFail($request->get('id'));
         $materia = Materia::findOrFail($request->get('materias'));
