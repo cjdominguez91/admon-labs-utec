@@ -1,6 +1,6 @@
-@extends ('sidebar.superadmin')
-@section ('TituloVista' , 'Usuarios')
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2',"Usuarios")
+@section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 
 <!-- Fin del Titulo -->

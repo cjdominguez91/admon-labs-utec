@@ -1,7 +1,6 @@
-
-@extends ('sidebar.superadmin')
-@section ('TituloVista', 'Información de Laboratorio')
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2',"Información del Laboratorio")
+@section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 
  
@@ -109,7 +108,7 @@
                       @enderror  
                 </div>
 
-                <input type="hidden" name="laboratorio" id="laboratorio" value="10">
+                <input type="hidden" name="laboratorio" id="laboratorio" value="13">
 
             </div>
             <div class="row mt-4">

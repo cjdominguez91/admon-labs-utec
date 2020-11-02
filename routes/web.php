@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Laboratorio;
+use App\catalogo\Laboratorio;
 use App\Role;
 use App\catalogo\Horario;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
-use App\catalogo\Carrera;
+use App\catalogo\Practica;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,17 +23,27 @@ use App\catalogo\Carrera;
 Route::get('/','HomeController@index');
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
-
-	return Carbon::now();
-	  // $horario = Horario::findOrFail(1);
-	  // return $horario->laboratorio;
-	  $horario = Horario::findOrFail(1);
-	  return $horario->laboratorio;
-	 
+	$lab =  Laboratorio::all();
+	return auth()->user()->usersRoles;
+	//return Laboratorio::with('horarios')->get();
+    // foreach(auth()->user()->laboratorio as $lab) {
+    // 	$id = $lab->id;
+    // }
+    // $horarios = Horario::with('practicas')->where('laboratorio_id',"=", $id)->get();
+    
+    // return auth()->user()->laboratorio;
+   	// return view('catalogo.laboratorio.mylab');
+	//  $practica = Horario::with('practicas')->get();
+	//  $horario = $practica;
+	//   return $horario;	 
+	// $practicas = Practica::with('horario')->get();
+	//  foreach ($practicas as $key => $practica) {
+	//  	return $practica->horario->hora->horario;
+	//  }
+	  	
 });
 
 Route::resource('software','SoftwareController');
@@ -60,5 +70,5 @@ Route::post('catalogo/roles/delete_permiso', 'catalogo\RolePermissionController@
 Route::resource('catalogo/horario', 'catalogo\HorarioControler');
 Route::resource('catalogo/horas', 'catalogo\HoraControler');
 //para combos
-Route::get('catalogo/horas_clases/combo/{id}', 'catalogo\HorasClasesController@getHorasClases');
+Route::get('catalogo/horarios/{id}/{dia}', 'catalogo\HorarioControler@getHorarios');
 

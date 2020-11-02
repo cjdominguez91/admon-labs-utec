@@ -42,8 +42,6 @@ class RolesController extends Controller
     public function store(RolesFormRequest $request)
     {
         $roles = Role::create(['name' => $request->get('name')]);
-        
-
         $roles->save();
         alert()->success('El registro ha sido agregado correctamente');
         return Redirect::to('catalogo/roles/create');

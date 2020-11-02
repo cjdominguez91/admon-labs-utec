@@ -28,7 +28,7 @@ class Carrera extends Model
     
     public function practicas()
     {
-        return $this->hasMany('App\catalogo\Practica', 'id_carreras');
+        return $this->hasMany('App\catalogo\Practica', 'practica', 'carrera_id');
     }
 
     public function carreraMaterias()

@@ -14,20 +14,42 @@
      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
      <!-- Font Awesome JS -->
     <script src="https://kit.fontawesome.com/ae386035b2.js" crossorigin="anonymous"></script> 
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 </head>
 <body>
     <div class="wrapper">
         <!-- Sidebar  -->
-        @include('../sidebar/superadmin')
+        @if (Route::has('login'))
+                @auth
+                    @foreach(auth()->user()->usersRoles as $rol)
+                        @if($rol->name == 'super admin')
+                            @include('../sidebar/superadmin')
+                        @elseif($rol->name == 'administrador')
+                            @include('../sidebar/admin')
+                        @endif
+                    @endforeach
+                @endauth
+        @endif
         <!-- Page Content  -->
+
         <div id="content">
-            @include('navbar')
+            <nav class="navbar fixed-top">
+                <a class="navbar-brand ml-4" href="{{route('home')}}"><img src="{{asset('img/utec_brand.png')}}" alt="" width="225"></a>
+                @if (Route::has('login'))
+                    @auth
+                        <button type="button" id="sidebarCollapse" class="btn btn-outline-light mr-3">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                    @endauth
+                @endif  
+            </nav>
             <!-- Inicio del Container-->
             <div class="container-fluid">
                 <!-- Inicio del Titulo de cada agina -->
                 <div class="row mt-5">
-                    <div class="col"><h2 class="m-0 p-0">@yield('tittle')</h2></div>
-                    <div class="col-1 d-flex justify-content-center align-items-end"><a class="m-0 p-0 text-secondary" href="#"><span class="material-icons">home</span></a></div>
+                    <div class="col"><h3 class="m-0 p-0 mt-4">@yield('h2')</h3></div>
+                    <div class="col-1 d-flex justify-content-center align-items-end"><a class="m-0 p-0 text-secondary" href="{{url('/home')}}"><span class="material-icons">home</span></a></div>
                 </div>
                 <hr>
                 <!-- Fin del Titulo -->

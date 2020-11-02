@@ -1,5 +1,6 @@
-@extends ('sidebar.superadmin')
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2',"Editar Practica")
+@section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 
 <div class="x_panel">

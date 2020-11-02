@@ -1,25 +1,9 @@
-@extends ('sidebar.superadmin')
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2',"Horas Clase")
+@section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
-
-<div class="row mt-5">
-    <div class="col">
-        <h2 class="m-0 p-0">Horas</h2>
-    </div>
-</div>
-<hr>
 <!-- Fin del Titulo -->
 <!-- Inicio del main -->
-
-
-
-
-
-
-
-
-
-
     <!-- Registro horas -->
     @if(empty($horasEdit))
     <div class="card" id="cardRegistrar">
@@ -48,20 +32,6 @@
     </div>
     @include('sweet::alert')
     @endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- Editar horas -->
     @if(empty($horasEdit))
     @else
@@ -93,16 +63,6 @@
                 </form>
         </div></div>
     @endif
-
-
-
-
-
-
-
-
-
-
 
 
 

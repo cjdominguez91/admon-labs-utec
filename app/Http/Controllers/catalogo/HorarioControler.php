@@ -158,6 +158,12 @@ class horarioControler extends Controller
     }
 
 
+    public function getHorarios($id, $dia){
+        //Definir el id de Materia Practica Libre
+        return Horario::with('hora')->where([['laboratorio_id', '=', $id],['dia', '=', $dia]])->get();
+
+    }
+
 
         public function actualizarEquipo(Request $request, $id)
     {

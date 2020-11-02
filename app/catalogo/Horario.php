@@ -53,6 +53,10 @@ class Horario extends Model
         return $this->belongsTo('App\catalogo\Ciclo');
     }
 
+    public function practicas()
+    {
+        return $this->hasMany('App\catalogo\Practica', 'horario_id');
+    }
 
   /*
     public function horario()

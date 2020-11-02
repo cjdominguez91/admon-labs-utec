@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;  
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -49,8 +49,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role','model_has_roles','model_id');
     }
     
-    public function laboratorios()
+    public function laboratorio()
     {
-        return $this->hasOne('App\catalogo\Laboratorio','laboratorio','user_id');
+        return $this->hasMany('App\catalogo\Laboratorio', 'user_id');
     }
 }

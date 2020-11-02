@@ -22,17 +22,13 @@ class Practica extends Model
 
     protected $guarded = [];
 
-    public function carreras()
+    public function carrera()
     {
-        return $this->belongsTo('App\catalogo\Carrera', 'carrera', 'id');
+        return $this->belongsTo('App\catalogo\Carrera');
     }
 
-    public function horarios()
+    public function horario()
     {
-        return $this->belongsTo('App\catalogo\Horario', 'horario', 'horas_id');
+        return $this->belongsTo('App\catalogo\Horario');
     }
-
-   
-    
-
 }

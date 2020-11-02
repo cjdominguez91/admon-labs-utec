@@ -1,13 +1,13 @@
-@extends ('sidebar.superadmin')
-@section ('TituloVista',"Crear Facultad ")
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2',"Nueva Facultad")
+@section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 <div class="x_panel">
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-horizontal form-label-left">
 
-                        @if (count($errors)>0)
+        @if (count($errors)>0)
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)

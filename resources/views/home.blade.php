@@ -1,6 +1,6 @@
   @extends('layouts.main')
-
   @section('content')
+  <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
       <div>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <a class="nav-item nav-link active" id="nav-labs-tab" data-toggle="tab" href="#nav-labs" role="tab" aria-controls="nav-labs" aria-selected="true">Laboratorios</a>
@@ -53,5 +53,6 @@
             </div>
         </div>
         <div class="tab-pane fade" id="nav-schedules" role="tabpanel" aria-labelledby="nav-schedules-tab">...</div>
+         @include('sweet::alert')
       </div>
   @endsection

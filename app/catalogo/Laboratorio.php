@@ -31,6 +31,6 @@ class Laboratorio extends Model
 
     public function horarios()
     {
-        $this->hasMany('App\catalogo\Horario','horario', 'laboratorio_id');
+        return $this->hasMany('App\catalogo\Horario','laboratorio_id');
     }
 }

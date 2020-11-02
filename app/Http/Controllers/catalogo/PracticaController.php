@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\catalogo\Practica;
 use App\catalogo\Horario;
 use App\catalogo\Carrera;
+use App\catalogo\Laboratorio;
 use App\catalogo\HorasClases;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\catalogo\PracticaFormRequest;
@@ -26,39 +27,86 @@ class PracticaController extends Controller
     {
 
         if ($request) {
+           if (auth()->user()->can('read practicas')) {
+                foreach(auth()->user()->usersRoles as $rol)
+                {
+                    if ($rol->name == "super admin") {
+                        $rol = $rol->name;
+                        $practicas = Practica::with('horario')->get();
+                        return view('catalogo.practica.index', ["practicas" => $practicas, 'rol' => $rol]);
+                    }
+                    else{
+                        $rol = $rol->name;         
+                        if (auth()->user()->laboratorio->isEmpty()) {
+                            return view('catalogo.practica.index', ['rol' => $rol]);
+                        }
+                        else {                                                                                              
+                            // consultamos el id del laboratorio asignado
+                            foreach(auth()->user()->laboratorio as $lab) {
+                                $id = $lab->id;
+                            }
+                            //Consultamos los horarios del laboratorio
+                            $horarios = Horario::with('practicas')->where('laboratorio_id',"=", $id)->get();
+                            //recorremos el horario y accedemos a las practicas
+                            foreach ($horarios as $key => $horario) {
+                                      $practicas = $horario->practicas;
+                            }
 
-            if (auth()->user()->can('read practicas')) {
+                        }
 
-                $practicas = Practica::with('carreras')->get();
+                        if (empty( $practicas)) {
+                            return view('catalogo.practica.index', ['idLab' => $id, 'rol' => $rol]);
+                        }
+                        else {
+                            return view('catalogo.practica.index', ["practicas" => $practicas, 'idLab' => $id, 'rol' => $rol]);
+                        }
 
-                // dd($carreras);
-                return view('catalogo.practica.index', ["practicas" => $practicas]);
+                        
+                    }
+                }
+                
             } else {
                 // abort(403);
-                return view('home');
+                alert()->warning('No posee un laboratorio asignado');
+                return redirect('home');
             }
         }
     }
     public function create()
     {
         if (auth()->user()->can('create practicas')) {
-            $carreras = Carrera::get();
-            $horario = Horario::with('materias')->get();
 
-            return view("catalogo.practica.create", ["carreras" => $carreras, "horario" => $horario]);
+            foreach(auth()->user()->usersRoles as $rol)
+                {
+                    if ($rol->name == "super admin") {
+                        $laboratorios = Laboratorio::all();
+                        $carreras = Carrera::all();
+                        return view("catalogo.practica.create", ['laboratorios' => $laboratorios, 'carreras' => $carreras]);
+                    }
+                    else
+                    {
+                         foreach(auth()->user()->laboratorio as $lab) {
+                            $id = $lab->id;
+                        }
+                        $carreras = Carrera::all();
+                        return view("catalogo.practica.create", ['id' => $id, 'carreras' => $carreras]);
+                    }
+                }
+            
         } else {
             // abort(403);
             return view('home');
         }
     }
+
     public function store(PracticaFormRequest $request)
     {
         $practica = new Practica;
         $practica->fecha = $request->get('fecha');
         $practica->asistencia = $request->get('asistencia');
 
-        $practica->id_carreras = $request->get('id_carreras');
-        $practica->id_horarios = $request->get('id_horarios');
+        $practica->carrera_id = $request->get('id_carreras');
+        $practica->horario_id = $request->get('id_horarios');
         $practica->timestamp = Carbon::now();
         $practica->save();
         alert()->success('El registro ha sido agregado correctamente');
@@ -98,6 +146,9 @@ class PracticaController extends Controller
         alert()->error('El registro ha sido eliminado correctamente');
         return Redirect::to('catalogo/practica');
     }
+
+
+    
 
     /* public function add_materia(Request $request)
     {

@@ -61,7 +61,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $clave = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 20);
+        //$clave = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 20);
+        $clave = 'Admin123';
         $nombre = $data['nombres']." ".$data['apellidos'];
         $datamsg = ['nombre' => $nombre, 'email' => $data['email'], 'clave' => $clave];
         $user = User::create([
@@ -73,8 +74,9 @@ class RegisterController extends Controller
             'primer_ingreso' => 0,
             'avatar' => 'user.png',
         ]);
-        Mail::to($data['email'])->queue(new RegisterConfirmation($datamsg));
         $user->assignRole($data['rol']);
+        Mail::to($data['email'])->queue(new RegisterConfirmation($datamsg));
+        
 
     }
 }

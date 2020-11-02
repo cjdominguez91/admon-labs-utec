@@ -1,18 +1,11 @@
-@extends ('sidebar.superadmin')
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2',"Editar Materia")
+@section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 
 <div class="x_panel">
     <div class="clearfix"></div>
     <div class="row">
-        <div class="x_title">
-            <h2>Modificación de materia</h2>
-
-            <ul class="nav navbar-right panel_toolbox">
-
-            </ul>
-            <div class="clearfix"></div>
-        </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-horizontal form-label-left">
 
 
@@ -33,7 +26,7 @@
                 <br>
 
                 <div class="form-group row">
-                    <label class="control-label col-md-3" align="right">Nombre</label>
+                    <label class="control-label col-md-3" align="right">Nombre: </label>
                     <div class="col-md-6">
                         <input class="form-control" name="nombre" type="text" value="{{$materia->nombre}}"
                             onblur="this.value = this.value.toUpperCase();">

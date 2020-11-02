@@ -1,6 +1,6 @@
-@extends ('sidebar.superadmin')
-@section ('TituloVista' ,ucfirst(trans($user->nombres))." ".ucfirst(trans($user->apellidos)) )
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2', ucfirst(trans($user->nombres))." ".ucfirst(trans($user->apellidos)))
+@section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 <div class="x_panel">
     <div class="clearfix"></div>

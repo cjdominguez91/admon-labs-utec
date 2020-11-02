@@ -1,7 +1,6 @@
-
-@extends ('sidebar.superadmin')
-@section ('TituloVista', 'Información de Laboratorio')
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2',"Información de Laboratorio")
+@section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 
                <!-- Inicio del main -->

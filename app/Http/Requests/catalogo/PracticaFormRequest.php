@@ -24,7 +24,7 @@ class PracticaFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            //  
         ];
     }
 }

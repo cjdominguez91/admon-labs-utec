@@ -1,6 +1,6 @@
-@extends ('sidebar.superadmin')
-@section ('TituloVista' , 'Nueva Practica')
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2',"Nueva Practica Libre")
+@section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 <div class="x_panel">
     <div class="clearfix"></div>
@@ -23,13 +23,52 @@
                 {{Form::token()}}
                 <form class="form-horizontal">
                     <br>
+                    @if(empty($laboratorios))
+                        <input type="hidden" name="laboratorio" id="laboratorio" value="{{$id}}">
+                    @else
+                        <div class="form-group row">
+                            <label class="control-label col-md-3" align="right">Laboratorio:</label>
+                            <div class="col-md-6">
+                                <select class="form-control" id="laboratorio" name="laboratorio">
+                                    @foreach($laboratorios as $laboratorio)
+                                        <option value="{{$laboratorio->id}}">{{$laboratorio->nombre }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+                    @endif
                     <div class="form-group row">
                         <label class="control-label col-md-3" align="right">Fecha</label>
                         <div class="col-md-6">
                             <input class="form-control" name="fecha" type="date" autofocus="true" onblur="this.value = this.value.toUpperCase();">
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-3" align="right">Dia:</label>
+                        <div class="col-md-6">
+                            <select class="form-control" id="dia" name="dia">
+                                <option value="">Elige Día-</option>
+                                <option value="Lunes">Lunes</option>
+                                <option value="Martes">Martes</option>
+                                <option value="Miercoles">Miercoles</option>
+                                <option value="Jueves">Jueves</option>
+                                <option value="Viernes">Viernes</option>
+                                <option value="Sabado">Sabado</option>
+                                <option value="Domingo">Domingo</option>
+                            </select>
 
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-3" align="right">horario clase</label>
+                        <div class="col-md-6">
+                            <select class="form-control" id="id_horas_clase" name="id_horarios">
+
+                            </select>
+
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label class="control-label col-md-3" align="right">Asistencia</label>
                         <div class="col-md-6">
@@ -43,40 +82,13 @@
                         <label class="control-label col-md-3" align="right">CARRERA</label>
                         <div class="col-md-6">
                             <select class="form-control" name="id_carreras">
-                                @foreach($carreras as $obj)
-                                <option value="{{$obj->id}}">{{$obj->nombre}}</option>
+                                @foreach($carreras as $carrera)
+                                    <option value="{{$carrera->id}}">{{$carrera->nombre}}</option>
                                 @endforeach
                             </select>
 
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <label class="control-label col-md-3" align="right">horario</label>
-                        <div class="col-md-6">
-                            <select class="form-control" id="id_horarios" name="id_horarios">
-                                <option value="0">Seleccione</option>
-                                @foreach($horario as $obj)
-                                <option value="{{$obj->id}}">{{$obj->dia}} - {{$obj->materias->nombre}}</option>
-                                @endforeach
-                            </select>
-
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="control-label col-md-3" align="right">horario clase</label>
-                        <div class="col-md-6">
-                            <select class="form-control" id="id_horas_clase" name="id_horas_clase">
-
-                            </select>
-
-                        </div>
-                    </div>
-
-
-
-
 
                     <div class="form-group" align="center">
                         <button type="submit" class="btn btn-success">Aceptar</button>
@@ -100,17 +112,19 @@
     <script type="text/javascript">
         $(document).ready(function() {
             //combo para Horarios
-            $("#id_horarios").change(function() {
+            $("#dia").change(function() {
                 // var para la Horarios                            
-                var Horarios = $(this).val();
+                var dia = $(this).val();
+                var laboratorio = $('#laboratorio').val();
+                //console.log(dia+" "+laboratorio);
 
                 //funcionpara las municipios
-                $.get('../horas_clases/combo/' + Horarios, function(data) {
+                $.get('../horarios/' + laboratorio +'/'+ dia , function(data) {
                     //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
                     console.log(data);
                     var _select = ''
                     for (var i = 0; i < data.length; i++)
-                        _select += '<option value="' + data[i].id + '">' + data[i].hora_inicio + ' - ' + data[i].hora_fin + '</option>';
+                        _select += '<option value="' + data[i].id + '">' + data[i].hora.horario + '</option>';
 
                     $("#id_horas_clase").html(_select);
 

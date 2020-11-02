@@ -1,6 +1,6 @@
-@extends ('sidebar.superadmin')
-@section ('TituloVista' , 'Información de Laboratorio')
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2',"Información del Laboratorio")
+@section ('content')
         <div class="row mt-5">
                     <div class="col-md-4 col-sm-12 text-center ml-5">
                         <img src="../img/card.png" alt="" width="317" height="180">

@@ -1,6 +1,6 @@
-@extends ('sidebar.superadmin')
-@section ('TituloVista' , $laboratorio->nombre)
-@section ('contenido')
+@extends ('layouts.app')
+@section ('h2', $laboratorio->nombre)
+@section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 <div class="x_panel">
     <div class="clearfix"></div>
@@ -20,17 +20,6 @@
                 <br />
                 <form class="form-horizontal">
                     <br>
-                    <div class="form-group row">
-                        <label class="control-label col-md-3" align="right">Id:</label>
-                        <div class="col-md-6">
-                            <input id="id" type="text" class="form-control @error('id') is-invalid @enderror" name="id" value="{{$laboratorio->id}}" required autocomplete="id" autofocus disabled>
-                               @error('id')
-                                   <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                   </span>
-                               @enderror
-                        </div>
-                    </div>
                     <div class="form-group row">
                         <label class="control-label col-md-3" align="right">Nombre:</label>
                         <div class="col-md-6">
