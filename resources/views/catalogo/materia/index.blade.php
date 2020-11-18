@@ -13,7 +13,8 @@
         </button>
     </a>
 
-    <table id="datatable" class="table table-striped table-bordered">
+    <table id="datatable" class="table table-striped table-bordered table-sm text-center
+    ">
         <thead class="text-light">
             <th>id</th>
             <th>nombre</th>

@@ -3,6 +3,9 @@
 @section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 
+
+
+
 <!-- Fin del Titulo -->
 <!-- Inicio del main -->
 

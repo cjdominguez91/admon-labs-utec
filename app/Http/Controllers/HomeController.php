@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         if ($request) {
             $this->middleware('firstlogin');
-            $laboratorios = Laboratorio::with('user')->get();
+            $laboratorios = Laboratorio::with('users')->get();
             return view('home', ["laboratorios" => $laboratorios]);
         }
     }

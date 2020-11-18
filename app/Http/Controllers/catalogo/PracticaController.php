@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers\catalogo;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\catalogo\Practica;
 use App\catalogo\Horario;
 use App\catalogo\Carrera;
@@ -28,6 +25,7 @@ class PracticaController extends Controller
 
         if ($request) {
            if (auth()->user()->can('read practicas')) {
+                 // validamos el rol del usuario   
                 foreach(auth()->user()->usersRoles as $rol)
                 {
                     if ($rol->name == "super admin") {
@@ -37,12 +35,12 @@ class PracticaController extends Controller
                     }
                     else{
                         $rol = $rol->name;         
-                        if (auth()->user()->laboratorio->isEmpty()) {
+                        if (auth()->user()->laboratorios->isEmpty()) {
                             return view('catalogo.practica.index', ['rol' => $rol]);
                         }
                         else {                                                                                              
                             // consultamos el id del laboratorio asignado
-                            foreach(auth()->user()->laboratorio as $lab) {
+                            foreach(auth()->user()->laboratorios as $lab) {
                                 $id = $lab->id;
                             }
                             //Consultamos los horarios del laboratorio
@@ -85,7 +83,7 @@ class PracticaController extends Controller
                     }
                     else
                     {
-                         foreach(auth()->user()->laboratorio as $lab) {
+                         foreach(auth()->user()->laboratorios as $lab) {
                             $id = $lab->id;
                         }
                         $carreras = Carrera::all();
@@ -160,4 +158,44 @@ class PracticaController extends Controller
 
         return redirect('catalogo/carrera/' . $carrera->id . '/edit');
     }*/
+
+     public function listarpracticas(Request $request, $id)
+    {
+        if ($request) {
+           if (auth()->user()->can('read practicas')) {
+                 // validamos el rol del usuario   
+                foreach(auth()->user()->usersRoles as $rol)
+                {
+                    if ($rol->name == "super admin") {
+                        $rol = $rol->name;
+                        $practicas = Practica::with('horario')->get();
+                        return view('catalogo.practica.index', ["practicas" => $practicas, 'rol' => $rol]);
+                    }
+                    else{
+                        $rol = $rol->name;                                                                          
+                            //Consultamos los horarios del laboratorio
+                            $horarios = Horario::with('practicas')->where('laboratorio_id',"=", $id)->get();
+                            //recorremos el horario y accedemos a las practicas
+                            foreach ($horarios as $horario) {
+                                      $practicas = $horario->practicas;
+                            }
+
+                        if (empty( $practicas)) {
+                            return view('catalogo.practica.index', ['idLab' => $id, 'rol' => $rol]);
+                        }
+                        else {
+                            return view('catalogo.practica.index', ["practicas" => $practicas, 'idLab' => $id, 'rol' => $rol]);
+                        }
+
+                        
+                    }
+                }
+                
+            } else {
+                // abort(403);
+                alert()->warning('No posee un laboratorio asignado');
+                return redirect('home');
+            }
+        }
+    }
 }

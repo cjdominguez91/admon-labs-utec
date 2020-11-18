@@ -28,6 +28,16 @@ class UserController extends Controller
         }
     }
 
+    public function listarUsuarios()
+    {
+        if (auth()->user()->can('read users')) {
+            $usuarios = User::with('usersRoles')->get();
+            return $usuarios;
+        } else {
+            return 'Error';
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -101,7 +111,8 @@ class UserController extends Controller
         $usuario->nombres = $request->get('nombres');
         $usuario->apellidos = $request->get('apellidos');
         $usuario->email = $request->get('email');
-        $usuario->avatar = $name;    
+        $usuario->avatar = $name;  
+        $usuario->syncRoles($request->get('rol'));  
         $usuario->update();
         alert()->info('El registro ha sido modificado correctamente');
         return redirect('catalogo/user/' . $id . '/edit');

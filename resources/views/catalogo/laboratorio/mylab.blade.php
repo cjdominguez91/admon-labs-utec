@@ -1,5 +1,5 @@
 @extends ('layouts.app')
-@section ('h2',"Mi Laboratorio")
+@section ('h2',"Mis Laboratorios")
 @section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 <!-- Fin del Titulo -->
@@ -11,19 +11,19 @@
         <thead class="text-light">
             <th>#</th>
             <th>Nombre</th>
-            <th>Encargado</th>
-            <th colspan="3">Acciones</th>
+            <th colspan="3">Gestionar</th>
         </thead>
         <tbody>
+            @foreach($laboratorios as $laboratorio)
             <tr>    
-                <td style="vertical-align: middle">1</td>
-                <td style="vertical-align: middle">Laboratorio 1</td>
-                <td style="vertical-align: middle">Juan Perez</td>
+                <td style="vertical-align: middle">{{$laboratorio->id}}</td>
+                <td style="vertical-align: middle">{{$laboratorio->nombre}}</td>
                 <td align="center">
                     <a href="" class="btn btn-dark btn-sm mx-1">Horarios</a>
-                    <a href="{{ url('catalogo/practica') }}" class="btn btn-secondary  btn-sm mx-1">Practicas</a>
+                    <a href="{{ route('practicas', $laboratorio->id) }}" class="btn btn-secondary  btn-sm mx-1">Practicas</a>
                 </td>
-            </tr>   
+            </tr> 
+            @endforeach
         </tbody>
     </table>
     @include('sweet::alert')

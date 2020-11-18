@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
      <link href="{{ asset('css/style.css') }}" rel="stylesheet">
      <script src="{{ asset(mix('js/app.js')) }}"></script>
+
      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
      <!-- Google ICONS -->
      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -73,11 +74,14 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
+    
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
+            
         });
             $('#dismiss, .overlay').on('click', function () {
                 $('#sidebar').removeClass('active');
@@ -116,5 +120,7 @@
                 });
             });
     </script>
+    <script src="{{asset('datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 </body>
 </html>

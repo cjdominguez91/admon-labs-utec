@@ -17,7 +17,6 @@
             <th>id</th>
             <th>Nombre</th>
             <th>Ubicacion</th>
-            <th>Encargado</th>
             <th colspan="3">Acciones</th>
         </thead>
         <tbody>
@@ -27,10 +26,12 @@
                 <td align="center">{{ $obj->id}}</td>
                 <td>{{ $obj->nombre}}</td>
                 <td>{{ $obj->ubicacion}}</td>
-                <td>{{ $obj->user->nombres." ".$obj->user->apellidos}}</td>
                 <td align="center">
                     <a href="{{URL::action('catalogo\LaboratorioController@show',$obj->id)}}"
                         ><i class="fa fa-eye fa-lg"></i></a>
+                    &nbsp;&nbsp;
+                    <a href="{{route('encargados',$obj->id)}}"
+                        class="on-default user-row"><i class="fa fa-user fa-lg"></i></a>
                     &nbsp;&nbsp;
                     <a href="{{URL::action('catalogo\LaboratorioController@edit',$obj->id)}}"
                         class="on-default edit-row"><i class="fa fa-pencil fa-lg"></i></a>
