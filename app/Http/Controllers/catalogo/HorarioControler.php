@@ -505,7 +505,8 @@ class horarioControler extends Controller
         $resp = "";
         foreach ($laboratorio->softwares as $obj ) 
         {   
-            $resp = $resp . " // " . $obj->nombre;   
+            $resp = $resp . " // " . $obj->nombre . '
+                  <a href="#" onclick="EliminarSoft( '.$request->id_soft.', '.$request->id_lab.' )"><i class="fa fa-trash fa-lg"></i></a>//'; 
         }
 
         echo $resp;

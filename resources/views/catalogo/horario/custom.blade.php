@@ -486,8 +486,8 @@
     <script type="text/javascript">
         function EliminarSoft(id_softs, id_labs)
         {   
-            alert("Esto es la munga: " + id_softs + "la otra munga" + id_labs);
-            /*$.ajax
+            //alert("Esto es la munga: " + id_softs + "la otra munga" + id_labs);
+            $.ajax
             ({
                 url: '/catalogo/quitarSoftware',
                 method: 'GET',
@@ -499,7 +499,7 @@
                 success: function(res){
                     $('#respuesta').html(res);
                 }
-            })  */   
+            })    
         }
 
 
