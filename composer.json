@@ -16,8 +16,10 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.3",
         "laravelcollective/html": "^6.0",
+        "phpoffice/phpexcel": "^1.8",
         "spatie/laravel-permission": "^3.17",
-        "uxweb/sweet-alert": "^2.0"
+        "uxweb/sweet-alert": "^2.0",
+        "phpoffice/phpexcel": "dev-master"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

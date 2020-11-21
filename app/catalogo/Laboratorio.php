@@ -19,6 +19,7 @@ class Laboratorio extends Model
         'ubicacion',
         'imagen',
         'user_id',
+        'software'
     ];
 
     protected $guarded = [];
@@ -33,4 +34,10 @@ class Laboratorio extends Model
     {
         return $this->hasMany('App\catalogo\Horario','laboratorio_id');
     }
+
+    public function softwares()
+    {
+        return $this->belongsToMany('App\catalogo\Software','laboratorio-software', 'id_laboratorios', 'id_software');
+    }
+
 }

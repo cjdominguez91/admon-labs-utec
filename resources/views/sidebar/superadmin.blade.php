@@ -4,10 +4,10 @@
             </div>
 
             <div class="sidebar-header text-center">
-                <h3>UTEC</h3>
+                <h3>UTEC2</h3>
             </div>
             <div class="user-info text-center">
-                <img src="{{asset('img/user.png')}}" class="img user-img" alt="user-image"><br>
+                <img src="{{asset('img/'.auth()->user()->avatar)}}" class="img user-img" alt="user-image"><br>
                 <b><span>{{ auth()->user()->nombres." ".auth()->user()->apellidos }}</span></b><br>
                 <span>
                     @foreach(auth()->user()->usersRoles as $rol)
@@ -27,16 +27,22 @@
                     <a href="{{url('catalogo/laboratorio')}}"><i class="fas fa-network-wired ml-3"></i> Laboratorios</a>
                 </li>
                 <li>
-                    <a href="{{url('catalogo/laboratorio')}}"><i class="fas fa-network-wired ml-3"></i> Carreras</a>
+                    <a href="{{url('catalogo/facultad')}}"><i class="fas fa-network-wired ml-3"></i> Facultades</a>
                 </li>
                 <li>
-                    <a href="{{url('catalogo/laboratorio')}}"><i class="fas fa-network-wired ml-3"></i> Carreras</a>
+                    <a href="{{url('catalogo/carrera')}}"><i class="fas fa-network-wired ml-3"></i> Carreras</a>
                 </li>
                 <li>
                     <a href="{{url('catalogo/ciclo')}}"><i class="fas fa-network-wired ml-3"></i> Ciclos</a>
                 </li>
                 <li>
                     <a href="{{url('catalogo/materia')}}"><i class="fas fa-book-reader ml-3"></i> Materias</a>
+                </li>
+                <li>
+                    <a href="{{url('catalogo/software')}}"><i class="fas fa-book-reader ml-3"></i> Catalogo Software</a>
+                </li>
+                <li>
+                    <a href="{{url('catalogo/horas')}}"><i class="fas fa-calendar-alt ml-3"></i> Horas Clase</a>
                 </li>
                 <li>
                     <a href="{{url('catalogo/horario')}}"><i class="fas fa-calendar-alt ml-3"></i> Horarios</a>
@@ -47,21 +53,7 @@
                 <li>
                     <a href="#"><i class="fas fa-chart-pie ml-3"></i> Reportes</a>
                 </li>
-                <li>
-                    <a href="#">About</a>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
+
                 <li>
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault();

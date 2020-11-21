@@ -2,12 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\catalogo\Laboratorio;
+use App\catalogo\Materia;
+use App\catalogo\Hora;
+use App\catalogo\Ciclo;
 use App\Role;
 use App\catalogo\Horario;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
 use App\catalogo\Practica;
+use App\catalogo\Software;
+use App\catalogo\LaboratorioSoftware;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +31,17 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
-	$lab =  Laboratorio::all();
-	return auth()->user()->usersRoles;
+
+        $laboratorio = Laboratorio::findOrFail(14);
+        $laboratorio->softwares()->attach(5);
+
+        $resp = "";
+        foreach ($laboratorio->softwares as $obj ) 
+        {   
+			echo $obj->nombre." / 	";        
+        }
+	 
+        return $laboratorio->softwares;
 	//return Laboratorio::with('horarios')->get();
     // foreach(auth()->user()->laboratorio as $lab) {
     // 	$id = $lab->id;
@@ -71,4 +85,10 @@ Route::resource('catalogo/horario', 'catalogo\HorarioControler');
 Route::resource('catalogo/horas', 'catalogo\HoraControler');
 //para combos
 Route::get('catalogo/horarios/{id}/{dia}', 'catalogo\HorarioControler@getHorarios');
+Route::get('catalogo/expoexcel', 'catalogo\HorarioControler@exportarExcel');
+Route::post('catalogo/impoexcel', 'catalogo\HorarioControler@importarExcel');
+Route::post('catalogo/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
+Route::post('catalogo/{id}/{dia}/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
+Route::get('catalogo/agregarSoftware', 'catalogo\HorarioControler@agregarSoftware');
+Route::get('catalogo/quitarSoftware', 'catalogo\HorarioControler@quitarSoftware');
 

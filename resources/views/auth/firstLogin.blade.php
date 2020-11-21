@@ -1,6 +1,6 @@
-@extends ('sidebar.superadmin')
-@section('TituloVista','Establecer Nueva Contraseña')
-@section('contenido')
+@extends ('layouts.app')
+@section('h2','Establecer Nueva Contraseña')
+@section('content')
     <div class="row justify-content-center mt-5">
         <div class="col-md-8">
             <div class="card">
