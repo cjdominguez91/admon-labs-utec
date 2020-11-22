@@ -24,8 +24,14 @@ Route::get('/','HomeController@index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test', function () {
-	return Horario::all();
+Route::DELETE('/test/{id}', function ($id) {
+
+        $laboratorio = LaboratorioSoftware::findOrFail($id);
+        $laboratorio->delete();
+        echo "hola perros";
+        //return $laboratorio;
+//Route::get('/test', function () {
+	//return Horario::all();
 		// $user = Laboratorio::findOrFail(1);
 		// $user->users()->sync(1);
 	//return Laboratorio::with('horarios')->get();
@@ -75,6 +81,13 @@ Route::post('catalogo/roles/delete_permiso', 'catalogo\RolePermissionController@
 Route::resource('catalogo/horas', 'catalogo\HoraControler');
 //para combos
 Route::get('catalogo/horarios/{id}/{dia}', 'catalogo\HorarioControler@getHorarios');
+Route::get('catalogo/expoexcel', 'catalogo\HorarioControler@exportarExcel');
+Route::post('catalogo/impoexcel', 'catalogo\HorarioControler@importarExcel');
+Route::post('catalogo/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
+Route::post('catalogo/{id}/{dia}/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
+Route::get('catalogo/agregarSoftware', 'catalogo\HorarioControler@agregarSoftware');
+//Route::post('catalogo/quitarSoftware', 'catalogo\HorarioControler@quitarSoftware');
+Route::delete('quitarSoftware/{id_s}/{id_l}', 'catalogo\HorarioControler@quitarSoftware');
 Route::put('catalogo/setciclo/{id}', 'catalogo\CicloController@setCiclo');
 Route::get('catalogo/ciclos', 'catalogo\CicloController@getCiclos')->name('ciclos');
 

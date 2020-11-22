@@ -19,4 +19,11 @@ class Software extends Model
     ];
 
     protected $guarded = [];
+
+
+    public function laboratorios()
+    {
+        return $this->belongsToMany('App\catalogo\Laboratorio','laboratorio-software', 'id_software', 'id_laboratorios');
+    }
+
 }
