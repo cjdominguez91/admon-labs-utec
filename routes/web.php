@@ -24,9 +24,38 @@ Route::get('/','HomeController@index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+<<<<<<< HEAD
 
 Route::get('/test', function () {
 
+=======
+Route::DELETE('/test/{id}', function ($id) {
+
+        $laboratorio = LaboratorioSoftware::findOrFail($id);
+        $laboratorio->delete();
+        echo "hola perros";
+        //return $laboratorio;
+//Route::get('/test', function () {
+	//return Horario::all();
+		// $user = Laboratorio::findOrFail(1);
+		// $user->users()->sync(1);
+	//return Laboratorio::with('horarios')->get();
+    // foreach(auth()->user()->laboratorio as $lab) {
+    // 	$id = $lab->id;
+    // }
+    // $horarios = Horario::with('practicas')->where('laboratorio_id',"=", $id)->get();
+    
+    // return auth()->user()->laboratorio;
+   	// return view('catalogo.laboratorio.mylab');
+	//  $practica = Horario::with('practicas')->get();
+	//  $horario = $practica;
+	//   return $horario;	 
+	// $practicas = Practica::with('horario')->get();
+	//  foreach ($practicas as $key => $practica) {
+	//  	return $practica->horario->hora->horario;
+	//  }
+	  	
+>>>>>>> origin
 });
 
 Route::resource('software','SoftwareController');
