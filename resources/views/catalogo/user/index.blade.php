@@ -8,7 +8,7 @@
 
 <!-- Fin del Titulo -->
 <!-- Inicio del main -->
-
+@include('catalogo.user.search')
 <div class="row my-5">
     <a href="{{url('catalogo/user/create')}}">
         <button class="btn btn-dark ml-auto d-flex align-items-end" id="btnAgregarUser">

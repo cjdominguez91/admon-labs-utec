@@ -26,8 +26,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+
+<<<<<<< HEAD
+=======
 Route::get('/test', function () {
 
+>>>>>>> 5c64dd17049a5a92f317aca849239725433a7665
 });
 
 Route::resource('software','SoftwareController');
