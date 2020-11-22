@@ -8,7 +8,7 @@
                 <h3>UTEC</h3>
             </div>
             <div class="user-info text-center">
-                <img src="{{asset('img/user.png')}}" class="img user-img" alt="user-image"><br>
+                <img src="{{asset('img/'.auth()->user()->avatar)}}" class="img user-img" alt="user-image"><br>
                 <b><span>{{ auth()->user()->nombres." ".auth()->user()->apellidos }}</span></b><br>
                 <span>
                     @foreach(auth()->user()->usersRoles as $rol)
@@ -22,10 +22,10 @@
                     <a href="#"><i class="fas fa-home ml-3"></i> Home</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-users ml-3"></i> Mi Centa</a>
+                    <a href="#"><i class="fas fa-users ml-3"></i> Mi Cuenta</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-network-wired ml-3"></i> Mi Laboratorio</a>
+                    <a href="catalogo/horario"><i class="fas fa-network-wired ml-3"></i> Mi Laboratorio</a>
                 </li>
                 <li>
                     <a href="#"><i class="fas fa-book-reader ml-3"></i> Practicas Libres</a>

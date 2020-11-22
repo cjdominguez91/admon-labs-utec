@@ -3,38 +3,47 @@
 @section ('content')
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 
- 
 
-
-
+                     
 
    <!-- Laboratorios -->
     <div class="row mt-5">
         <div class="col-4 text-center ml-5">
-            <img src="img/card.png" alt="" width="317" height="180">
+            
+            @if(empty($horariosEdit))
+                <img src="../img/laboratorios/{{$imagen_lab}}" alt="" width="317" height="180">
+            @else
+                <img src="/img/laboratorios/{{$imagen_lab}}" alt="" width="317" height="180">
+            @endif
         </div>
         <div class="col-5 ml-4">
             <table>
                 <th colspan="2">
-                    <h5><span class="badge badge-dark p-1">Laboratorio 2</span></h5>
+                    <h5><span class="badge badge-dark p-1">{{$nom_lab}}</span></h5>
                 </th>
                 <tr>
-                    <td><b>Ubicación:</b> <span>Edificio Simon Bolivar</span></td>
+                    <td><b>Ubicación:</b> <span> {{$ubica_lab}} </span></td>
                 </tr>
                 <tr>
-                    <td><b>Equipos Disponibles:</b> <span>60</span></td>
+                    <td><b>Equipos Disponibles:</b> {{$cant_lab}} <span></span></td>
                 </tr>
                 <tr>
-                    <td><b>Encargado:</b> <span>Carlos Chavarria</span></td>
+                    <td><b>Encargado:</b> <span>{{$usuario}} </span></td>
                 </tr>
+               <tr>
+                   <a href="" data-target="#modalInfoLab" data-toggle="modal"><i class="fa fa-pencil fa-lg"></i>Editar Información Laboratorio</a>
+               </tr>
+               @include('catalogo.horario.modal2')
             </table>
         </div>
     </div>
     &nbsp
 
 
-    <!-- Registro horarios -->
 
+
+
+    <!-- Registro horarios -->
     @if(empty($horariosEdit))
     <div class="card" id="cardRegistrar">
         <h5 class="card-header bg-light"> Registro de Horarios</h5>
@@ -108,7 +117,7 @@
                       @enderror  
                 </div>
 
-                <input type="hidden" name="laboratorio" id="laboratorio" value="13">
+                <input type="hidden" name="laboratorio" id="laboratorio" value="{{$id_lab}}">
 
             </div>
             <div class="row mt-4">
@@ -129,13 +138,18 @@
 
 
    
+
+
+
+
+
     <!-- Registro horarios Importacion -->    
     <div class="card toggle-card mt-5 border" id="cardMasiva">
         <h5 class="card-header bg-light"> Registro con Importación</h5>
         <div class="card-body">
             <div class="row ">
                 <div class="col-3 ">
-                    <button type="button" class="btn btn-outline-secondary">
+                    <a href="{{URL::action('catalogo\HorarioControler@exportarExcel')}}" type="button" class="btn btn-outline-secondary">
                         Descarga de plantilla
                         <svg width="1em" height="1em" viewBox="0 0 16 16"
                             class="bi bi-file-earmark-arrow-down-fill" fill="currentColor"
@@ -144,26 +158,29 @@
                                 d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7 2l.5-2.5 3 3L10 5a1 1 0 0 1-1-1zm-.5 3.5a.5.5 0 0 0-1 0v3.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 11.293V7.5z" />
                         </svg>
                         <div style='text-align:center;'><i class="fa "></i></div>
-                    </button>
-                </div>
-                <div class="col-3">
-                    <input type="text" class="form-control" name="" placeholder="01-2021">
-                </div>
-                <div class="col-3 ">
-                    <button type="button" class="btn btn-outline-secondary">
-                        Seleccionar Archivo
-                    </button>
+                    </a>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="col-5">
-                    <input type="button" class="btn btn-info" value="Guardar">
-                    <input type="button" class="btn btn-danger ml-2" id="btnCancelMasiva"
-                    value="Cancelar">
+            <hr>
+
+            <form method="POST" action="impoexcel" accept-charset="UTF-8" enctype="multipart/form-data">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="row mt-4">
+                    <div class="col-3 ">
+                        <input type="file" name="file" required class="btn btn-outline-secondary">
+                        <input type="submit" class="btn btn-info" value="Guardar">
+                        <input type="button" class="btn btn-danger ml-2" id="btnCancelMasiva"
+                        value="Cancelar">
+                    </div>
                 </div>
-            </div>
+            </form>
+            
         </div>
     </div>
+
+
+
+
 
 
 
@@ -278,7 +295,7 @@
                             <input class="form-control" name="alerta_seminarios" type="text" value="{{$horariosEdit->alerta_seminarios}}" onblur="this.value = this.value.toUpperCase();">
                         </div>
 
-                        <input type="hidden" name="laboratorio" id="laboratorio" value="10">
+                        <input type="hidden" name="laboratorio" id="laboratorio" value="{{$id_lab}}">
                          <input type="hidden" name="estado" id="estado" value="{{$horariosEdit->estado}}">
 
                     </div>
@@ -318,34 +335,7 @@
             </div>
         </div>
         <h4 class="mt-4 text-center">HORARIOS ESTABLECIDOS PARA EL CICLO 01-2021</h4>
-        <div class="row d-flex align-items-end">
-            <div class="col-2">
-                <h5 class="mt-4">Filtros:</h5>
-            </div>
-            <div class="col-1 mb-1 text-secondary">
-                <span class="material-icons">filter_alt</span>
-            </div>
-        </div>
-        <div class="row ">
-            <div class="col-3">
-                <select class="form-control" name="" id="">
-                    <option value="">Seleccionar Edificio</option>
-                </select>
-            </div>
-            <div class="col-3">
-                <select class="form-control" name="" id="">
-                    <option value="">Seleccionar Dia</option>
-                </select>
-            </div>
-            <div class="col-3">
-                <select class="form-control" name="" id="">
-                    <option value="">Seleccionar Horario</option>
-                </select>
-            </div>
-            <div class="col-3">
-                <input type="text" class="form-control" name="" placeholder="Software">
-            </div>
-        </div>
+
         </a>
         <hr>
         <table class="table table-sm text-center my-5">
@@ -398,7 +388,21 @@
         </table>
     </div>
     
-
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="col-md-6 col-sm-12">
+            <div class="card py-4 px-5">
+                <div class="card-body">
+                    <span class="text-center soft-tittle bg-dark">Software Disponible</span>
+                    <p class="text-justify mt-5 text-dark">
+                        @foreach($lab_soft->softwares as $obj)
+                                {{$obj->nombre}}//
+                        @endforeach
+                    </p>
+                </div>
+            </div> 
+        </div>
+        
+    </div>
 
 
     <!-- fin del main -->
@@ -453,8 +457,46 @@
             });
     </script>
 
+    <script type="text/javascript">
+        $('#AgregarSoft').click( function()
+                                    {   
+                                        $.ajax
+                                        ({
+                                            url: '/catalogo/agregarSoftware',
+                                            method: 'GET',
+                                            data: { 
+                                                    id_soft: document.getElementById("listSoftware").value, 
+                                                    id_lab: document.getElementById("id_lab").value, 
+                                                    _token:$('input[name="_token"]').val() 
+                                                    },
+                                            success: function(res){
+                                                $('#respuesta').html(res);
+                                            }
+                                        })
+                                        
+                                    }
+                                );
+    </script>
+
+    <script type="text/javascript">
+        function EliminarSoft(id_softs, id_labs)
+        {   
+            //alert("Esto es la munga: " + id_softs + "la otra munga" + id_labs);
+            $.ajax
+            ({
+                url: '/quitarSoftware/'+ id_softs + '/' + id_labs,
+                method: 'DELETE',
+                data: { 
+                        _token:$('input[name="_token"]').val() 
+                        },
+                success: function(res){
+                    $('#respuesta').html(res);
+                }
+            })    
+        }
 
 
+    </script>
 
 
 @endsection

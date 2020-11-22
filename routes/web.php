@@ -24,30 +24,9 @@ Route::get('/','HomeController@index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::get('/test', function () {
-	return Laboratorio::join('horario', 'laboratorio.id', '=', 'horario.laboratorio_id')->where('hora_id','Lunes')->get();
 
-
-	
-	
-		// $user = Laboratorio::findOrFail(1);
-		// $user->users()->sync(1);
-	//return Laboratorio::with('horarios')->get();
-    // foreach(auth()->user()->laboratorio as $lab) {
-    // 	$id = $lab->id;
-    // }
-    // $horarios = Horario::with('practicas')->where('laboratorio_id',"=", $id)->get();
-    
-    // return auth()->user()->laboratorio;
-   	// return view('catalogo.laboratorio.mylab');
-	//  $practica = Horario::with('practicas')->get();
-	//  $horario = $practica;
-	//   return $horario;	 
-	// $practicas = Practica::with('horario')->get();
-	//  foreach ($practicas as $key => $practica) {
-	//  	return $practica->horario->hora->horario;
-	//  }
-	  	
 });
 
 Route::resource('software','SoftwareController');
@@ -80,6 +59,13 @@ Route::post('catalogo/roles/delete_permiso', 'catalogo\RolePermissionController@
 Route::resource('catalogo/horas', 'catalogo\HoraControler');
 //para combos
 Route::get('catalogo/horarios/{id}/{dia}', 'catalogo\HorarioControler@getHorarios');
+Route::get('catalogo/expoexcel', 'catalogo\HorarioControler@exportarExcel');
+Route::post('catalogo/impoexcel', 'catalogo\HorarioControler@importarExcel');
+Route::post('catalogo/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
+Route::post('catalogo/{id}/{dia}/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
+Route::get('catalogo/agregarSoftware', 'catalogo\HorarioControler@agregarSoftware');
+//Route::post('catalogo/quitarSoftware', 'catalogo\HorarioControler@quitarSoftware');
+Route::delete('quitarSoftware/{id_s}/{id_l}', 'catalogo\HorarioControler@quitarSoftware');
 Route::put('catalogo/setciclo/{id}', 'catalogo\CicloController@setCiclo');
 Route::get('catalogo/ciclos', 'catalogo\CicloController@getCiclos')->name('ciclos');
 

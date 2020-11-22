@@ -64,6 +64,8 @@ class LaboratorioController extends Controller
         $laboratorio = new Laboratorio;
         $laboratorio->nombre = $request->get('nombre');
         $laboratorio->ubicacion = $request->get('ubicacion');
+        $laboratorio->user_id = $request->get('encargado');
+        $laboratorio->imagen = "lab0.png";
         $laboratorio->timestamp = Carbon::now(); 
         $laboratorio->save();
         alert()->success('El registro ha sido agregado correctamente');

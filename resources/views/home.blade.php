@@ -38,10 +38,11 @@
               </div>
           </div>
             <div class="row">
+
             @foreach($laboratorios as $laboratorio)
               <div class="col-md-3 col-sm-12 mt-5">
                   <div class="card">
-                    <img src="img/card.png" class="card-img-top" alt="...">
+                    <img src="img/laboratorios/{{$laboratorio->imagen}}" class="card-img-top" alt="...">
                     <div class="card-body card-body-labs">
                       <h5 class="card-title">{{$laboratorio->nombre}}</h5>
                       <p class="card-text">{{Str::limit($laboratorio->ubicacion, 25)}}.</p>
@@ -50,7 +51,9 @@
                   </div>
               </div>
               @endforeach
-            </div>
+            </div>            
+
+
         </div>
         <div class="tab-pane fade" id="nav-schedules" role="tabpanel" aria-labelledby="nav-schedules-tab">...</div>
          @include('sweet::alert')
