@@ -42,6 +42,15 @@ class horarioControler extends Controller
         return view('catalogo.horario.custom', ["horarios"=>$horarios, "ciclos"=>$ciclos, "materias"=>$materias, "horas"=>$horas]);
     }
 
+
+    public function horariosLaboratorio(Request $id)
+    {
+        $horas = Hora::get();
+        $materias = Materia::get();
+        $horarios = Horario::with('laboratorios', 'materia', 'hora', 'ciclo')->get();
+        return view('catalogo.horario.custom', ["horarios"=>$horarios, "ciclos"=>$ciclos, "materias"=>$materias, "horas"=>$horas]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -23,21 +23,7 @@
                 {{Form::token()}}
                 <form class="form-horizontal">
                     <br>
-                    @if(empty($laboratorios))
-                        <input type="hidden" name="laboratorio" id="laboratorio" value="{{$id}}">
-                    @else
-                        <div class="form-group row">
-                            <label class="control-label col-md-3" align="right">Laboratorio:</label>
-                            <div class="col-md-6">
-                                <select class="form-control" id="laboratorio" name="laboratorio">
-                                    @foreach($laboratorios as $laboratorio)
-                                        <option value="{{$laboratorio->id}}">{{$laboratorio->nombre }}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-                        </div>
-                    @endif
+                    <input type="hidden" name="laboratorio" id="laboratorio" value="{{$id}}">
                     <div class="form-group row">
                         <label class="control-label col-md-3" align="right">Fecha</label>
                         <div class="col-md-6">
@@ -119,12 +105,17 @@
                 //console.log(dia+" "+laboratorio);
 
                 //funcionpara las municipios
-                $.get('../horarios/' + laboratorio +'/'+ dia , function(data) {
+                $.get('../catalogo/horarios/' + laboratorio +'/'+ dia , function(data) {
                     //esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
                     console.log(data);
-                    var _select = ''
+                    var _select = '';
                     for (var i = 0; i < data.length; i++)
+                    {
                         _select += '<option value="' + data[i].id + '">' + data[i].hora.horario + '</option>';
+                    }
+                    if (_select == '') {
+                        var _select = '<option value="">No hay libres</option>';
+                    }
 
                     $("#id_horas_clase").html(_select);
 

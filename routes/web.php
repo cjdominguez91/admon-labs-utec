@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\catalogo\Laboratorio;
 use App\User;
-use App\catalogo\Ciclo;
+use App\catalogo\Practica;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\catalogo\Horario;
@@ -25,7 +25,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
-	return Horario::all();
+	return Laboratorio::join('horario', 'laboratorio.id', '=', 'horario.laboratorio_id')->where('hora_id','Lunes')->get();
+
+
+	
+	
 		// $user = Laboratorio::findOrFail(1);
 		// $user->users()->sync(1);
 	//return Laboratorio::with('horarios')->get();
@@ -60,6 +64,7 @@ Route::resource('catalogo/materia', 'catalogo\MateriaController');
 Route::resource('catalogo/software', 'catalogo\SoftwareController');
 Route::resource('catalogo/practica', 'catalogo\PracticaController');
 Route::get('/practicas/{id}', 'catalogo\PracticaController@listarpracticas')->name('practicas');
+Route::get('/practica/{id}', 'catalogo\PracticaController@crearPractica')->name('practica');
 Route::resource('catalogo/roles', 'catalogo\RolesController');
 Route::resource('catalogo/laboratorio', 'catalogo\LaboratorioController');
 Route::get('/mylabs', 'catalogo\LaboratorioController@listMyLabs')->name('mylabs');

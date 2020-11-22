@@ -147,7 +147,6 @@ class LaboratorioController extends Controller
 
     public function listMyLabs()
     {
-
         if (auth()->user()->can('read laboratorios')) {
             $laboratorios = Laboratorio::get();
             return view('catalogo.laboratorio.mylab', ["laboratorios" => $laboratorios]);

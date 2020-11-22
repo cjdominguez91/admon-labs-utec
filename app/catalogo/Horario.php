@@ -55,7 +55,7 @@ class Horario extends Model
 
     public function practicas()
     {
-        return $this->hasMany('App\catalogo\Practica', 'horario_id');
+        return $this->hasMany('App\catalogo\Practica', 'horario_id')->orderBy('id');;
     }
 
   /*

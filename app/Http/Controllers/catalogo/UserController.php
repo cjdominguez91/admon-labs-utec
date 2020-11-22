@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         if (auth()->user()->can('read users')) {
-            $usuarios = User::with('usersRoles')->get();
+            $usuarios = User::orderBy('id','Desc')->paginate(5);
             return view('catalogo.user.index', ["usuarios" => $usuarios]);
         } else {
             return 'Error';

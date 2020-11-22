@@ -57,6 +57,7 @@
 
         </tbody>
     </table>
+    {{$usuarios->links()}}
     @include('sweet::alert')
 </div>
 <!-- fin del main -->

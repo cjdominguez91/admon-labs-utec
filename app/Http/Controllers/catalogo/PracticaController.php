@@ -70,6 +70,8 @@ class PracticaController extends Controller
             }
         }
     }
+
+
     public function create()
     {
         if (auth()->user()->can('create practicas')) {
@@ -97,19 +99,38 @@ class PracticaController extends Controller
         }
     }
 
+    public function crearPractica($id)
+    {
+        if (auth()->user()->can('create practicas')) {
+            $carreras = Carrera::all();
+            return view("catalogo.practica.create", ['id' => $id, 'carreras' => $carreras]);
+            
+        } else {
+            // abort(403);
+            return view('home');
+        }
+    }
+
     public function store(PracticaFormRequest $request)
     {
         $practica = new Practica;
         $practica->fecha = $request->get('fecha');
         $practica->asistencia = $request->get('asistencia');
-
         $practica->carrera_id = $request->get('id_carreras');
         $practica->horario_id = $request->get('id_horarios');
         $practica->timestamp = Carbon::now();
         $practica->save();
         alert()->success('El registro ha sido agregado correctamente');
-        return Redirect::to('catalogo/practica/create');
+        $id = $request->get('laboratorio');
+        $practicas = [];                                                      
+        //Consultamos los horarios del laboratorio
+        $horarios = Horario::where([['laboratorio_id', $id],['ciclo_id', ciclo()->id]])
+        ->paginate(1);
+        //recorremos el horario y accedemos a las practicas
+
+        return view('catalogo.practica.index', ["horarios" => $horarios, 'id' => $id]);
     }
+
     public function show($id)
     {
         return view("catalogo.practica.show", ["practica" => Practica::findOrFail($id)]);
@@ -163,33 +184,12 @@ class PracticaController extends Controller
     {
         if ($request) {
            if (auth()->user()->can('read practicas')) {
-                 // validamos el rol del usuario   
-                foreach(auth()->user()->usersRoles as $rol)
-                {
-                    if ($rol->name == "super admin") {
-                        $rol = $rol->name;
-                        $practicas = Practica::with('horario')->get();
-                        return view('catalogo.practica.index', ["practicas" => $practicas, 'rol' => $rol]);
-                    }
-                    else{
-                        $rol = $rol->name;                                                                          
-                            //Consultamos los horarios del laboratorio
-                            $horarios = Horario::with('practicas')->where('laboratorio_id',"=", $id)->get();
-                            //recorremos el horario y accedemos a las practicas
-                            foreach ($horarios as $horario) {
-                                      $practicas = $horario->practicas;
-                            }
+                    //Consultamos los horarios del laboratorio
+                    $horarios = Horario::where([['laboratorio_id', $id],['ciclo_id', ciclo()->id]])->paginate(1);
+                    //recorremos el horario y accedemos a las practicas
 
-                        if (empty( $practicas)) {
-                            return view('catalogo.practica.index', ['idLab' => $id, 'rol' => $rol]);
-                        }
-                        else {
-                            return view('catalogo.practica.index', ["practicas" => $practicas, 'idLab' => $id, 'rol' => $rol]);
-                        }
-
-                        
-                    }
-                }
+                    return view('catalogo.practica.index', ["horarios" => $horarios, 'id' => $id]);
+                
                 
             } else {
                 // abort(403);
