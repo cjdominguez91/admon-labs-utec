@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\catalogo\Hora;
 use App\catalogo\Laboratorio;
 use App\User;
 use App\catalogo\Practica;
@@ -23,6 +24,7 @@ Route::get('/','HomeController@index');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 Route::get('/test', function () {
 
@@ -52,7 +54,7 @@ Route::get('/single/{id}', 'HomeController@single')->name('single');
 Route::get('/confirmation', 'catalogo\UserController@firstLogin')->name('confirmation');
 Route::put('/end-register/{id}', 'catalogo\UserController@setPass')->name('end-register');
 Route::post('catalogo/carrera/add_materia', 'catalogo\CarreraController@add_materia');
-Route::resource('catalogo/horario', 'catalogo\HorarioControler');
+Route::resource('catalogo/horario', 'catalogo\HorarioController');
 Route::post('catalogo/rol/add_permiso', 'catalogo\RolePermissionController@add_permiso');
 Route::post('catalogo/roles/delete_permiso', 'catalogo\RolePermissionController@delete_permiso');
 Route::resource('catalogo/horas', 'catalogo\HoraControler');
@@ -67,4 +69,11 @@ Route::get('catalogo/agregarSoftware', 'catalogo\HorarioControler@agregarSoftwar
 Route::delete('quitarSoftware/{id_s}/{id_l}', 'catalogo\HorarioControler@quitarSoftware');
 Route::put('catalogo/setciclo/{id}', 'catalogo\CicloController@setCiclo');
 Route::get('catalogo/ciclos', 'catalogo\CicloController@getCiclos')->name('ciclos');
+
+Route::resource('reporte/reporte', 'reporte\HorarioController');
+Route::post('reporte/reporte_aceptar', 'reporte\HorarioController@reporte_aceptar');
+
+Route::get('catalogo/filtro/{id}', 'catalogo\FiltroController@getData');
+Route::get('catalogo/filtros/{tipo}/{par1}/{par2}', 'catalogo\FiltroController@filtrado');
+
 

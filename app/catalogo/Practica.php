@@ -15,7 +15,7 @@ class Practica extends Model
     protected $fillable = [
         'fecha',
         'asistencia',
-        'id_carreras',
+        'carrera_id',
         'id_horarios',
         
     ];
