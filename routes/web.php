@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\catalogo\Hora;
 use App\catalogo\Laboratorio;
 use App\Role;
 use App\catalogo\Horario;
@@ -26,8 +27,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
-	$lab =  Laboratorio::all();
-	return auth()->user()->usersRoles;
+
+	$laboratorios = Laboratorio::with('horarios')->whereHas('horarios', function ($query) {
+		$query->where('dia', 'Lunes')->get();
+	});
+	return $laboratorios;
 	//return Laboratorio::with('horarios')->get();
     // foreach(auth()->user()->laboratorio as $lab) {
     // 	$id = $lab->id;
@@ -64,11 +68,18 @@ Route::get('/single/{id}', 'HomeController@single')->name('single');
 Route::get('/confirmation', 'catalogo\UserController@firstLogin')->name('confirmation');
 Route::put('/end-register/{id}', 'catalogo\UserController@setPass')->name('end-register');
 Route::post('catalogo/carrera/add_materia', 'catalogo\CarreraController@add_materia');
-Route::resource('catalogo/horario', 'catalogo\HorarioControler');
+Route::resource('catalogo/horario', 'catalogo\HorarioController');
 Route::post('catalogo/rol/add_permiso', 'catalogo\RolePermissionController@add_permiso');
 Route::post('catalogo/roles/delete_permiso', 'catalogo\RolePermissionController@delete_permiso');
-Route::resource('catalogo/horario', 'catalogo\HorarioControler');
-Route::resource('catalogo/horas', 'catalogo\HoraControler');
+//Route::resource('catalogo/horario', 'catalogo\HorarioControler');
+Route::resource('catalogo/horas', 'catalogo\HoraController');
 //para combos
-Route::get('catalogo/horarios/{id}/{dia}', 'catalogo\HorarioControler@getHorarios');
+Route::get('catalogo/horarios/{id}/{dia}', 'catalogo\HorarioController@getHorarios');
+Route::resource('views/home', 'catalogo\HomeClasesController');
+Route::resource('reporte/reporte', 'reporte\HorarioController');
+Route::post('reporte/reporte_aceptar', 'reporte\HorarioController@reporte_aceptar');
+
+Route::get('catalogo/filtro/{id}', 'catalogo\FiltroController@getData');
+Route::get('catalogo/filtros/{tipo}/{par1}/{par2}', 'catalogo\FiltroController@filtrado');
+
 

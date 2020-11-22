@@ -381,7 +381,7 @@
                         @endif  
                     </td>
                     <td align="center">
-                        <a href="{{URL::action('catalogo\HorarioControler@edit',$horario->id)}}"
+                        <a href="{{URL::action('catalogo\HorarioController@edit',$horario->id)}}"
                             class="on-default edit-row"><i class="fa fa-pencil fa-lg"></i>
                         </a>
                         &nbsp;&nbsp;

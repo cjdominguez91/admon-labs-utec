@@ -18,14 +18,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (auth()->user()->can('read users')) {
-            $usuarios = User::with('usersRoles')->get();
-            return view('catalogo.user.index', ["usuarios" => $usuarios]);
+            $query=trim($request->get('searchText'));
+
+            $usuarios = User::with('usersRoles')->where('nombres','LIKE','%'.$query.'%')->paginate(2);
+            return view('catalogo.user.index', ["usuarios" => $usuarios,"searchText"=>$query]);
         } else {
             return 'Error';
         }
+        
     }
 
     /**

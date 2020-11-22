@@ -18,7 +18,7 @@ use Carbon\Carbon;
 
 
 
-class horarioControler extends Controller
+class horarioController extends Controller
 {
 
     public function __construct()
