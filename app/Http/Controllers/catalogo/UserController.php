@@ -18,7 +18,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (auth()->user()->can('read users')) {
             $usuarios = User::orderBy('id','Desc')->paginate(5);
@@ -26,6 +26,7 @@ class UserController extends Controller
         } else {
             return 'Error';
         }
+        
     }
 
     public function listarUsuarios()
