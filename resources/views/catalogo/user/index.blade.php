@@ -8,14 +8,15 @@
 
 <!-- Fin del Titulo -->
 <!-- Inicio del main -->
-
+@include('catalogo.user.search')
 <div class="row my-5">
     <a href="{{url('catalogo/user/create')}}">
         <button class="btn btn-dark ml-auto d-flex align-items-end" id="btnAgregarUser">
             Agregar Nuevo Usuario <span class="material-icons m-0 p-0"> add_circle_outline </span>
         </button>
     </a>
-
+    <br>
+   
     <table id="datatable" class="table table-striped table-bordered">
         <thead class="text-light">
             <th>id</th>
@@ -60,6 +61,7 @@
     {{$usuarios->links()}}
     @include('sweet::alert')
 </div>
+{{$usuarios->render()}}
 <!-- fin del main -->
 
 

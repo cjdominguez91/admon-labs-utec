@@ -4,7 +4,7 @@
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 <!-- Fin del Titulo -->
 <!-- Inicio del main -->
-
+@include('catalogo.carrera.search')
 <div class="row my-5">
     <a href="{{url('catalogo/carrera/create')}}">
         <button class="btn btn-dark ml-auto d-flex align-items-end" id="btnAgregarUser">
@@ -43,6 +43,7 @@
     </table>
     @include('sweet::alert')
 </div>
+{{$carreras->render()}}
 <!-- fin del main -->
 
 
