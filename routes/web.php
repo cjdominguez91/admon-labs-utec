@@ -30,18 +30,13 @@ Route::get('/','HomeController@index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test', function () {
+Route::DELETE('/test/{id}', function ($id) {
 
-        $laboratorio = Laboratorio::findOrFail(14);
-        $laboratorio->softwares()->attach(5);
+        $laboratorio = LaboratorioSoftware::findOrFail($id);
+        $laboratorio->delete();
 
-        $resp = "";
-        foreach ($laboratorio->softwares as $obj ) 
-        {   
-			echo $obj->nombre." / 	";        
-        }
-	 
-        return $laboratorio->softwares;
+        echo "hola perros";
+        //return $laboratorio;
 	//return Laboratorio::with('horarios')->get();
     // foreach(auth()->user()->laboratorio as $lab) {
     // 	$id = $lab->id;
@@ -90,5 +85,7 @@ Route::post('catalogo/impoexcel', 'catalogo\HorarioControler@importarExcel');
 Route::post('catalogo/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
 Route::post('catalogo/{id}/{dia}/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
 Route::get('catalogo/agregarSoftware', 'catalogo\HorarioControler@agregarSoftware');
-Route::get('catalogo/quitarSoftware', 'catalogo\HorarioControler@quitarSoftware');
+//Route::post('catalogo/quitarSoftware', 'catalogo\HorarioControler@quitarSoftware');
+
+Route::delete('quitarSoftware/{id_s}/{id_l}', 'catalogo\HorarioControler@quitarSoftware');
 

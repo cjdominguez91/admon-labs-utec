@@ -497,11 +497,15 @@ class horarioControler extends Controller
     }
 
 
-    public function quitarSoftware(Request $request)
+    public function quitarSoftware($ids, $idl)
     {
-        $laboratorio = Laboratorio::findOrFail($request->id_lab);
-        $laboratorio->softwares()->dettach($request->id_soft);
+        $laboratorio = LaboratorioSoftware::findOrFail($request->id_lab)->where([['id_software', '=', $request->id_soft]])->get();
 
+
+        $laboratorio = Laboratorio::findOrFail($idl);
+        //$laboratorio->softwares()->dettach($ids);
+
+        $resp = "id_soft: ".$ids." id_lab: ".$idl;
         $resp = "";
         foreach ($laboratorio->softwares as $obj ) 
         {   
@@ -509,7 +513,7 @@ class horarioControler extends Controller
                   <a href="#" onclick="EliminarSoft( '.$request->id_soft.', '.$request->id_lab.' )"><i class="fa fa-trash fa-lg"></i></a>//'; 
         }
 
-        echo $resp;
+        echo $laboratorio;
     }
 
 

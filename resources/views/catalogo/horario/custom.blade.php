@@ -470,12 +470,6 @@
                                                     },
                                             success: function(res){
                                                 $('#respuesta').html(res);
-                                                /*console.log(res);
-                                                var template = "";
-                                                var data = res[0];
-                                                for (var i = 0; i < data.length; i++) {
-                                                    template += data[i].nombre 
-                                                }$('#respuesta').html(template);*/
                                             }
                                         })
                                         
@@ -489,11 +483,9 @@
             //alert("Esto es la munga: " + id_softs + "la otra munga" + id_labs);
             $.ajax
             ({
-                url: '/catalogo/quitarSoftware',
-                method: 'GET',
+                url: '/quitarSoftware/'+ id_softs + '/' + id_labs,
+                method: 'DELETE',
                 data: { 
-                        id_soft: id_softs, 
-                        id_lab: id_labs, 
                         _token:$('input[name="_token"]').val() 
                         },
                 success: function(res){
