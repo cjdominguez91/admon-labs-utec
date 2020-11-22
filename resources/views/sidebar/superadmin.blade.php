@@ -27,16 +27,9 @@
                     <a href="{{url('catalogo/laboratorio')}}"><i class="fas fa-network-wired ml-3"></i> Laboratorios</a>
                 </li>
                 <li>
-<<<<<<< HEAD
                     <a href="{{url('catalogo/facultad')}}"><i class="fas fa-network-wired ml-3"></i> Facultades</a>
                 </li>
                 <li>
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> reportes
->>>>>>> 5c64dd17049a5a92f317aca849239725433a7665
                     <a href="{{url('catalogo/carrera')}}"><i class="fas fa-network-wired ml-3"></i> Carreras</a>
                 </li>
                
@@ -59,11 +52,7 @@
                     <a href="{{url('catalogo/practica')}}"><i class="fas fa-folder-open ml-3"></i> Practicas Libres</a>
                 </li>
                 <li>
-<<<<<<< HEAD
                     <a href="{{url('reporte/reporte')}}"><i class="fas fa-chart-pie ml-3"></i> Reportes</a>
-=======
-                    <a href="reporte/reporte"><i class="fas fa-chart-pie ml-3"></i> Reportes</a>
->>>>>>> 5c64dd17049a5a92f317aca849239725433a7665
                 </li>
 
                 <li>
