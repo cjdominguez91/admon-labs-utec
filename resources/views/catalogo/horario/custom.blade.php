@@ -306,8 +306,9 @@
                             >Cancelar</a>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+             </div>
+            
         </div>
     @endif
 

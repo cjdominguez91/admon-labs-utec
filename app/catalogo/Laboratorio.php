@@ -18,15 +18,13 @@ class Laboratorio extends Model
         'nombre',
         'ubicacion',
         'imagen',
-        'user_id',
-        'software'
     ];
 
     protected $guarded = [];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsToMany('App\User', 'user_laboratorio','laboratorio_id','user_id');
     }
 
 

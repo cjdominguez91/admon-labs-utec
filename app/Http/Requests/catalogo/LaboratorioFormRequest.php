@@ -26,7 +26,6 @@ class LaboratorioFormRequest extends FormRequest
         return [
             'nombre' => 'required|max:100',
             'ubicacion' => 'required|max:100',
-            'encargado' => 'required',
         ];
     }
 }

@@ -45,18 +45,6 @@
                                @enderror
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="control-label col-md-3" align="right">Encargado:</label>
-                        <div class="col-md-6">
-                            <select class="form-control" name="encargado">
-                                <option value="">Selecione un Encargado</option>
-                               @foreach($usuarios as $user)
-                                    <option value="{{$user['id']}}">{{$user['nombres']." ".$user['apellidos']}}</option>
-                               @endforeach
-                            </select>
-                        </div>
-                    </div>
-
                     <div class="form-group" align="center">
                         <button type="submit" class="btn btn-success">Aceptar</button>
                         <a href="{{url('catalogo/laboratorio')}}"><button type="button"

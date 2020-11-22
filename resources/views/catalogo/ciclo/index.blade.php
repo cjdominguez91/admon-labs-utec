@@ -1,10 +1,13 @@
 @extends ('layouts.app')
 @section ('h2',"Ciclos")
 @section ('content')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 <!-- Fin del Titulo -->
 <!-- Inicio del main -->
 
+<input type="hidden" name="token" value="{{ csrf_token() }}" id="token">
 <div class="row my-5">
     <a href="{{url('catalogo/ciclo/create')}}">
         <button class="btn btn-dark ml-auto d-flex align-items-end" id="btnAgregarUser">
@@ -22,7 +25,7 @@
             <th colspan="3">Acciones</th>
             <th>Current</th>
         </thead>
-        <tbody>
+        <tbody id="table">
             @foreach ($ciclos as $ciclo)
             <tr>
                 <td align="center">{{ $ciclo->id}}</td>
@@ -39,8 +42,12 @@
                 </td>
                 <td>
                     <div class="form-check text-center">
-                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    @if($ciclo->estatus == 'A')
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="{{$ciclo->id}}" checked>
+                    @else
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="{{$ciclo->id}}" >
                     </div>
+                    @endif
                 </td>
             </tr>
             @include('catalogo.ciclo.modal')
@@ -52,6 +59,61 @@
     </table>
     @include('sweet::alert')
 </div>
+<script>
+    $("[name='exampleRadios']").click(function(){  
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success m-1',
+            cancelButton: 'btn btn-danger m-1'
+          },
+          buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+          title: 'Desea definir este ciclo como el actual?',
+          text: "Esto afectara a toda la plataforma!",
+          icon: 'warning',
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          showCancelButton: true,
+          confirmButtonText: 'Si, Activar!',
+          cancelButtonText: 'No, Cancelar!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var idCiclo = $(this).val();
+            var route = '../catalogo/setciclo/'+idCiclo+'';
+            var token = $('#token').val();
+            
+            $.ajax({
+                url: route,
+                headers: {'X_CSRF-TOKEN': token},
+                type: 'PUT',
+                dataType: 'json'
+                success: function(data){
+
+                  
+                }
+            });
+            swalWithBootstrapButtons.fire(
+              'Ciclo Activado!',
+              'Se ha difinido como el ciclo curso ',
+              'success'
+            )
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            location.href ="http://127.0.0.1:8000/catalogo/ciclo";
+            swalWithBootstrapButtons.fire(
+              'Cancelado',
+              'Se cancelo la accion',
+              'error'
+            )
+          }
+})
+    })
+</script>
 <!-- fin del main -->
 
 

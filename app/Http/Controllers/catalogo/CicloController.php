@@ -57,7 +57,7 @@ class CicloController extends Controller
 
     public function show($id)
     {
-        return view("catalogo.permission.show", ["permission" => Permission::findOrFail($id)]);
+        
     }
 
     public function edit($id)
@@ -83,6 +83,19 @@ class CicloController extends Controller
         $ciclo->delete();
         alert()->error('El registro ha sido eliminado correctamente');
         return Redirect::to('catalogo/ciclo');
+    }
+
+    public function setCiclo($id){
+        $active = Ciclo::where('estatus','=','A')->firstOrFail();
+        $active->estatus = 'I';
+        $active->update();
+        $nuevo = Ciclo::findOrFail($id);
+        $nuevo->estatus = 'A';
+        $nuevo->update();
+    }
+
+    public function getCiclos(){
+        return Ciclo::all();
     }
 
 }

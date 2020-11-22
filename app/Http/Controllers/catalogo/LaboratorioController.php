@@ -27,7 +27,7 @@ class LaboratorioController extends Controller
     {
         if ($request) {
             if (auth()->user()->can('read laboratorios')) {
-            $laboratorios = Laboratorio::with('user')->get();
+            $laboratorios = Laboratorio::get();
             return view('catalogo.laboratorio.index', ["laboratorios" => $laboratorios]);
            // dd($materias);
            
@@ -111,7 +111,6 @@ class LaboratorioController extends Controller
         $laboratorio = Laboratorio::findOrFail($id);
         $laboratorio->nombre = $request->get('nombre');
         $laboratorio->ubicacion = $request->get('ubicacion');
-        $laboratorio->user_id = $request->get('encargado');
         $laboratorio->update();
         alert()->info('El registro ha sido modificado correctamente');
         return redirect('catalogo/laboratorio/' . $id . '/edit');
@@ -129,5 +128,34 @@ class LaboratorioController extends Controller
         $laboratorio->delete();
         alert()->error('El registro ha sido eliminado correctamente');
         return Redirect::to('catalogo/laboratorio');
+    }
+
+    public function listarEncargados($id)
+    {
+        $users = User::all();
+        $laboratorio = Laboratorio::findOrFail($id);
+        return view('catalogo.laboratorio.encargados', ["laboratorio" => $laboratorio, 'users' => $users]);
+    }
+
+    public function setEncargado(Request $request, $id)
+    {
+        $user = $request->user;
+        $laboratorio = Laboratorio::findOrFail($id);
+        $laboratorio->users()->sync($user);
+         $users = User::all();
+        return Redirect::to('encargados/'.$laboratorio->id);
+        // return view('catalogo.laboratorio.encargados', ["laboratorio" => $laboratorio, 'users' => $users]);
+    }
+
+    public function listMyLabs()
+    {
+
+        if (auth()->user()->can('read laboratorios')) {
+            $laboratorios = Laboratorio::get();
+            return view('catalogo.laboratorio.mylab', ["laboratorios" => $laboratorios]);
+        }
+        $users = User::findOrFail(auth()->user()->id);
+        $laboratorios = $users->laboratorios;
+        return view('catalogo.laboratorio.mylab', ["laboratorios" => $laboratorios]);
     }
 }

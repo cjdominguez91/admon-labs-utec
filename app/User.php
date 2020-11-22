@@ -49,8 +49,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role','model_has_roles','model_id');
     }
     
-    public function laboratorio()
+    public function laboratorios()
     {
-        return $this->hasMany('App\catalogo\Laboratorio', 'user_id');
+        return $this->belongsToMany('App\catalogo\Laboratorio','user_laboratorio','user_id', 'laboratorio_id');
     }
 }

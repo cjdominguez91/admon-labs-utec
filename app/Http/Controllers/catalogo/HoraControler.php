@@ -31,7 +31,7 @@ class horaControler extends Controller
     public function index()
     {
         $horas = Hora::get();
-        return view('catalogo.horas.index', ["horas"=>$horas]);
+        return view('catalogo.horas.index', ['horas' => $horas]);
     }
 
     /**

@@ -2,17 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\catalogo\Laboratorio;
-use App\catalogo\Materia;
-use App\catalogo\Hora;
+use App\User;
 use App\catalogo\Ciclo;
-use App\Role;
-use App\catalogo\Horario;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\User;
-use App\catalogo\Practica;
-use App\catalogo\Software;
-use App\catalogo\LaboratorioSoftware;
+use App\catalogo\Horario;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,9 +28,12 @@ Route::DELETE('/test/{id}', function ($id) {
 
         $laboratorio = LaboratorioSoftware::findOrFail($id);
         $laboratorio->delete();
-
         echo "hola perros";
         //return $laboratorio;
+//Route::get('/test', function () {
+	//return Horario::all();
+		// $user = Laboratorio::findOrFail(1);
+		// $user->users()->sync(1);
 	//return Laboratorio::with('horarios')->get();
     // foreach(auth()->user()->laboratorio as $lab) {
     // 	$id = $lab->id;
@@ -61,14 +58,19 @@ Route::resource('software','SoftwareController');
 //catalogos
 Route::resource('catalogo/permission', 'catalogo\PermissionController');
 Route::resource('catalogo/user', 'catalogo\UserController');
+Route::get('users', 'catalogo\UserController@listarUsuarios')->name('users');
 Route::resource('catalogo/ciclo', 'catalogo\CicloController');
 Route::resource('catalogo/facultad', 'catalogo\FacultadController');
 Route::resource('catalogo/carrera', 'catalogo\CarreraController');
 Route::resource('catalogo/materia', 'catalogo\MateriaController');
 Route::resource('catalogo/software', 'catalogo\SoftwareController');
 Route::resource('catalogo/practica', 'catalogo\PracticaController');
+Route::get('/practicas/{id}', 'catalogo\PracticaController@listarpracticas')->name('practicas');
 Route::resource('catalogo/roles', 'catalogo\RolesController');
 Route::resource('catalogo/laboratorio', 'catalogo\LaboratorioController');
+Route::get('/mylabs', 'catalogo\LaboratorioController@listMyLabs')->name('mylabs');
+Route::get('/encargados/{id}', 'catalogo\LaboratorioController@listarEncargados')->name('encargados');
+Route::post('/encargado/{id}', 'catalogo\LaboratorioController@setEncargado')->name('encargado');
 Route::get('/single/{id}', 'HomeController@single')->name('single');
 Route::get('/confirmation', 'catalogo\UserController@firstLogin')->name('confirmation');
 Route::put('/end-register/{id}', 'catalogo\UserController@setPass')->name('end-register');
@@ -76,7 +78,6 @@ Route::post('catalogo/carrera/add_materia', 'catalogo\CarreraController@add_mate
 Route::resource('catalogo/horario', 'catalogo\HorarioControler');
 Route::post('catalogo/rol/add_permiso', 'catalogo\RolePermissionController@add_permiso');
 Route::post('catalogo/roles/delete_permiso', 'catalogo\RolePermissionController@delete_permiso');
-Route::resource('catalogo/horario', 'catalogo\HorarioControler');
 Route::resource('catalogo/horas', 'catalogo\HoraControler');
 //para combos
 Route::get('catalogo/horarios/{id}/{dia}', 'catalogo\HorarioControler@getHorarios');
@@ -86,6 +87,7 @@ Route::post('catalogo/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
 Route::post('catalogo/{id}/{dia}/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
 Route::get('catalogo/agregarSoftware', 'catalogo\HorarioControler@agregarSoftware');
 //Route::post('catalogo/quitarSoftware', 'catalogo\HorarioControler@quitarSoftware');
-
 Route::delete('quitarSoftware/{id_s}/{id_l}', 'catalogo\HorarioControler@quitarSoftware');
+Route::put('catalogo/setciclo/{id}', 'catalogo\CicloController@setCiclo');
+Route::get('catalogo/ciclos', 'catalogo\CicloController@getCiclos')->name('ciclos');
 
