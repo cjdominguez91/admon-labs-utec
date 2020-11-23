@@ -4,7 +4,7 @@
   <div>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <a class="nav-item nav-link active" id="nav-labs-tab" data-toggle="tab" href="#nav-labs" role="tab" aria-controls="nav-labs" aria-selected="true">Laboratorios</a>
-      <a class="nav-item nav-link" id="nav-schedules-tab" data-toggle="tab" href="#nav-schedules" role="tab" aria-controls="nav-schedules-tab" aria-selected="false">Horarios</a>
+      <a class="nav-item nav-link horarios" id="nav-schedules-tab" data-toggle="tab" href="#nav-schedules" role="tab" aria-controls="nav-schedules-tab" aria-selected="false">Horarios</a>
     </div>
   </div>
   <div class="tab-content" id="nav-tabContent">
@@ -121,90 +121,109 @@
     <script type="text/javascript">
       $(document).ready(function() {
       //combo para Filtro
-      $("#Filtro1").change(function() {
-          // var para la Filtro1                            
-          var Filtro1 = $(this).val();
+        $("#Filtro1").change(function() {
+            // var para la Filtro1                            
+            var Filtro1 = $(this).val();
 
-          //console.log(Filtro1+" "+laboratorio);
+            //console.log(Filtro1+" "+laboratorio);
 
-          //funcionpara las Filtro
-        switch (Filtro1) {
-          case '1':
-            $('#flt2').attr('hidden', true);
-            $.get('catalogo/filtro/' + Filtro1, function(data) {
-              //esta el la peticion, la cual se divide en tres partes. ruta,variables y funcion
-              console.log(data);
-              var _select = '<option value="">Seleccionar</option>'
-              for (var i = 0; i < data.length; i++)
-                _select += '<option value="' + data[i].ubicacion + '">' + data[i].ubicacion  + '</option>';
-
-              $("#Filtro3").html(_select);
-
-            })
-            break;
-          case '2':
-            $('#flt2').removeAttr('hidden');
-            $.get('catalogo/filtro/' + Filtro1, function(data) {
-              //esta el la peticion, la cual se divide en tres partes. ruta,variables y funcion
-              console.log(data);
-              var _select = '<option value="">Seleccionar</option>'
-              for (var i = 0; i < data.length; i++)
-                _select += '<option value="' + data[i].id + '">' + data[i].horario  + '</option>';
-
-              $("#Filtro3").html(_select);
-            })
-
-            break;
-            case '3':
+            //funcionpara las Filtro
+          switch (Filtro1) {
+            case '1':
               $('#flt2').attr('hidden', true);
               $.get('catalogo/filtro/' + Filtro1, function(data) {
-                  //esta el la peticion, la cual se divide en tres partes. ruta,variables y funcion
-                  console.log(data);
-                  var _select = '<option value="">Seleccionar</option>'
-                  for (var i = 0; i < data.length; i++)
-                    _select += '<option value="' + data[i].id + '">' + data[i].nombre + '</option>';
+                //esta el la peticion, la cual se divide en tres partes. ruta,variables y funcion
+                console.log(data);
+                var _select = '<option value="">Seleccionar</option>'
+                for (var i = 0; i < data.length; i++)
+                  _select += '<option value="' + data[i].ubicacion + '">' + data[i].ubicacion  + '</option>';
 
-                  $("#Filtro3").html(_select);
+                $("#Filtro3").html(_select);
 
-                })
-            break;
-        
-          default:
-            $('#flt2').attr('hidden', true);
-            break;
-        }
+              })
+              break;
+            case '2':
+              $('#flt2').removeAttr('hidden');
+              $.get('catalogo/filtro/' + Filtro1, function(data) {
+                //esta el la peticion, la cual se divide en tres partes. ruta,variables y funcion
+                console.log(data);
+                var _select = '<option value="">Seleccionar</option>'
+                for (var i = 0; i < data.length; i++)
+                  _select += '<option value="' + data[i].id + '">' + data[i].horario  + '</option>';
+
+                $("#Filtro3").html(_select);
+              })
+
+              break;
+              case '3':
+                $('#flt2').attr('hidden', true);
+                $.get('catalogo/filtro/' + Filtro1, function(data) {
+                    //esta el la peticion, la cual se divide en tres partes. ruta,variables y funcion
+                    console.log(data);
+                    var _select = '<option value="">Seleccionar</option>'
+                    for (var i = 0; i < data.length; i++)
+                      _select += '<option value="' + data[i].id + '">' + data[i].nombre + '</option>';
+
+                    $("#Filtro3").html(_select);
+
+                  })
+              break;
+          
+            default:
+              $('#flt2').attr('hidden', true);
+              break;
+          }
 
 
-      });
-      $("#btnBuscar").click(function() {
-          // var para la Filtro2  
-          var tipo = $('#Filtro1').val();                          
-          var par1 = $('#Filtro3').val();
-          var par2 = $('#Filtro2').val() || 1;
+        });
+        $("#btnBuscar").click(function() {
+            // var para la Filtro2  
+            var tipo = $('#Filtro1').val();                          
+            var par1 = $('#Filtro3').val();
+            var par2 = $('#Filtro2').val() || 1;
 
 
-          //console.log(Filtro2+" "+laboratorio);
+            //console.log(Filtro2+" "+laboratorio);
 
-          //funcionpara las Filtro
-            $.get('catalogo/filtros/' + tipo +'/'+ par1+'/'+par2+'', function(laboratorios) {
-              //esta el la peticion, la cual se divide en tres partes. ruta,variables y funcion
-              var _select = ''
-              for (var i = 0; i < laboratorios.length; i++)
-                _select += '<div class="col-md-3 col-sm-12 mt-5">'
-                               +'<div class="card" name="body" id="body">'
-                               +'<img src="img/card.png" class="card-img-top" alt="...">'
-                               +'<div class="card-body card-body-labs">'
-                               +'<h5 class="card-title">'+laboratorios[i].nombre+'</h5>'
-                               +'<p class="card-text">'+laboratorios[i].ubicacion+'.</p>'
-                               +'<a href="#" class="btn btn btn-outline-light">Ver información</a>'
-                               +'</div>'
-                               +'</div>'
-                               +'</div>';
-              $("#body").html(_select);
+            //funcionpara las Filtro
+              $.get('catalogo/filtros/' + tipo +'/'+ par1+'/'+par2+'', function(laboratorios) {
+                //esta el la peticion, la cual se divide en tres partes. ruta,variables y funcion
+                var _select = ''
+                if (tipo == 2) {
+                  for (var i = 0; i < laboratorios.length; i++)
+                  _select += '<div class="col-md-3 col-sm-12 mt-5">'
+                                 +'<div class="card" name="body" id="body">'
+                                 +'<img src="img/laboratorios/'+laboratorios[i].imagen+'" class="card-img-top" alt="...">'
+                                 +'<div class="card-body card-body-labs">'
+                                 +'<h5 class="card-title">'+laboratorios[i].nombre+'</h5>'
+                                 +'<p class="card-text">'+laboratorios[i].ubicacion+'.</p>'
+                                 +'<a href="/single/'+laboratorios[i].laboratorio_id+'" class="btn btn btn-outline-light">Ver información</a>'
+                                 +'</div>'
+                                 +'</div>'
+                                 +'</div>';
+                }
+                else
+                {
+                for (var i = 0; i < laboratorios.length; i++)
+                  _select += '<div class="col-md-3 col-sm-12 mt-5">'
+                                 +'<div class="card" name="body" id="body">'
+                                 +'<img src="img/laboratorios/'+laboratorios[i].imagen+'" class="card-img-top" alt="...">'
+                                 +'<div class="card-body card-body-labs">'
+                                 +'<h5 class="card-title">'+laboratorios[i].nombre+'</h5>'
+                                 +'<p class="card-text">'+laboratorios[i].ubicacion+'.</p>'
+                                 +'<a href="/single/'+laboratorios[i].id+'" class="btn btn btn-outline-light">Ver información</a>'
+                                 +'</div>'
+                                 +'</div>'
+                                 +'</div>';
+                }
+                $("#body").html(_select);
 
-            })
-            
-      });
+              })
+              
+        });
+        $('.horarios').click(function(){
+          
+        })
       });
     </script>
   </div>

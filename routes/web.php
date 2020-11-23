@@ -29,7 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/test', function () {
-
+   return  Laboratorio::join('horario', 'laboratorio.id', '=', 'horario.laboratorio_id')->where([['dia', 'Viernes'], ['materia_id',6], ['hora_id', 2]])->get();
 });
 
 Route::resource('software','SoftwareController');

@@ -20,7 +20,7 @@ use Carbon\Carbon;
 use PHPExcel; 
 use PHPExcel_IOFactory;
 
-class horarioController extends Controller
+class horarioControler extends Controller
 {
 
     public function __construct()
@@ -497,7 +497,6 @@ class horarioController extends Controller
     }
 
 
-<<<<<<< HEAD
     public function quitarSoftware($id)
     {
         LaboratorioSoftware::find($id)->delete($id);
@@ -507,17 +506,6 @@ class horarioController extends Controller
         //$laboratorio->softwares()->dettach($id_softs);
 
         /*$resp = "id_lab: ".$id_labs;
-=======
-    public function quitarSoftware($ids, $idl)
-    {
-        $laboratorio = LaboratorioSoftware::findOrFail($request->id_lab)->where([['id_software', '=', $request->id_soft]])->get();
-
-
-        $laboratorio = Laboratorio::findOrFail($idl);
-        //$laboratorio->softwares()->dettach($ids);
-
-        $resp = "id_soft: ".$ids." id_lab: ".$idl;
->>>>>>> origin
         $resp = "";
         foreach ($laboratorio->softwares as $obj ) 
         {   
@@ -525,12 +513,8 @@ class horarioController extends Controller
                   <a href="#" onclick="EliminarSoft( '.$request->id_soft.', '.$request->id_lab.' )"><i class="fa fa-trash fa-lg"></i></a>//'; 
         }
 
-<<<<<<< HEAD
         echo $resp;*/
         echo "Puto";
-=======
-        echo $laboratorio;
->>>>>>> origin
     }
 
 
