@@ -29,7 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/test', function () {
-   return  Laboratorio::join('horario', 'laboratorio.id', '=', 'horario.laboratorio_id')->where([['dia', 'Viernes'], ['materia_id',6], ['hora_id', 2]])->get();
+   return  Horario::with('hora', 'laboratorio','ciclo')->where([['materia_id',6],['ciclo_id', ciclo()->id]])->get();
 });
 
 Route::resource('software','SoftwareController');
@@ -77,5 +77,7 @@ Route::post('reporte/reporte_aceptar', 'reporte\HorarioController@reporte_acepta
 
 Route::get('catalogo/filtro/{id}', 'catalogo\FiltroController@getData');
 Route::get('catalogo/filtros/{tipo}/{par1}/{par2}', 'catalogo\FiltroController@filtrado');
+Route::get('horarios', 'HomeController@horariosPractica');
+Route::get('practicas/{id}/{lab}', 'catalogo\PracticaController@editPractica');
 
 

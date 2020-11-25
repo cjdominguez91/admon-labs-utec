@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if (auth()->user()->can('read users')) {
-            $usuarios = User::orderBy('id','Desc')->paginate(5);
+            $usuarios = User::orderBy('id','Desc')->where('estatus', 'A')->paginate(5);
             return view('catalogo.user.index', ["usuarios" => $usuarios]);
         } else {
             return 'Error';
@@ -133,13 +133,15 @@ class UserController extends Controller
         $user->estatus = 'I';
         $user->fecha_baja = Carbon::now();
         $user->update();
-        
+        alert()->info('El registro ha sido modificado correctamente');
+        return redirect('catalogo/user');
     }
 
     public function firstLogin(){
         $user = User::findOrFail(auth()->user()->id);
         return view('auth.firstLogin',['user' => $user]);
     }
+
 
     public function setPass(Request $request, $id){
         $request->validate([

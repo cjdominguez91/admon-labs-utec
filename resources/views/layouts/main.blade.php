@@ -16,6 +16,7 @@
     <script src="https://kit.fontawesome.com/ae386035b2.js" crossorigin="anonymous"></script>   
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
 </head>
 <body>
     <div class="wrapper">
@@ -37,7 +38,7 @@
         <!-- Page Content  -->
         <div id="content">
             <nav class="navbar fixed-top" hidden>
-                <a class="navbar-brand ml-4" href="#"><img src="img/utec_brand.png" alt="" width="225"></a>
+                <a class="navbar-brand ml-4" href="{{route('home')}}"><img src="img/utec_brand.png" alt="" width="225"></a>
                 @if (Route::has('login'))
                     @auth
                         <button type="button" id="sidebarCollapse" class="btn btn-outline-light mr-3">
@@ -47,7 +48,7 @@
                 @endif
             </nav>
             <div class="jumbotron-fluid d-flex justify-content-between align-items-start">
-                <a class="navbar-brand ml-4" href="#"><img src="img/utec_brand.png" alt="" width="225"></a>
+                <a class="navbar-brand ml-4" href="{{route('home')}}"><img src="img/utec_brand.png" alt="" width="225"></a>
                 @if (Route::has('login'))
                     @auth
                         <button type="button" id="sidebarCollapse2" class="btn btn-outline-light mt-2 mr-3">
@@ -77,7 +78,7 @@
     <div class="overlay"></div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
@@ -85,7 +86,11 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
     <script type="text/javascript">
+        
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"

@@ -3,21 +3,25 @@
 @section ('content')
         <div class="row mt-5">
                     <div class="col-md-4 col-sm-12 text-center ml-5">
-                        <img src="../img/laboratorios/{{$imagen_lab}}" alt="" width="317" height="180">
+                        <img src="../img/laboratorios/{{$laboratorio->imagen}}" alt="" width="317" height="180">
                     </div>
                     <div class="col-md-5 col-sm-12 ml-4">
                         <table>
                             <th colspan="2">
-                                <h5><span class="badge badge-dark p-1"> {{$nom_lab}}</span></h5>
+                                <h5><span class="badge badge-dark p-1"> {{$laboratorio->nombre}}</span></h5>
                             </th>
                             <tr>
-                                <td><b>Ubicación:</b> <span> {{$ubica_lab}}</span></td>
+                                <td><b>Ubicación:</b> <span> {{$laboratorio->ubicacion}}</span></td>
                             </tr>
                             <tr>
-                                <td><b>Equipos Disponibles:</b> {{$cant_lab}} <span></span></td>
+                                <td><b>Equipos Disponibles:</b> {{$laboratorio->cant_equipo}} <span></span></td>
                             </tr>
                             <tr>
-                                <td><b>Encargado:</b> <span> {{$nombre_encargado}} </span></td>
+                                <td><b>Encargado:</b> <span>
+                                    @foreach($laboratorio->users as $user)
+                                        {{$user->nombres.', '.$user->apellidos}}
+                                    @endforeach
+                                </span></td>
                             </tr>
                         </table>
                     </div>
@@ -30,7 +34,7 @@
                         <span class="badge badge-danger">&nbsp &nbsp &nbsp &nbsp &nbsp</span> &nbsp Alerta Seminarios
                     </div>
                 </div>
-                <h4 class="mt-4 text-center">HORARIOS ESTABLECIDOS PARA EL CICLO 01-2021</h4>
+                <h4 class="mt-4 text-center">HORARIOS ESTABLECIDOS PARA EL CICLO {{ciclo()->codigo}}</h4>
                 <div class="row d-flex align-items-end">
   
                     </div>
@@ -39,7 +43,6 @@
                     </div>
                 <table class="table table-sm text-center my-5 table-responsive-sm">
                     <thead class="text-light">
-                        <th>#</th>
                         <th>Laboratorio</th>
                         <th>Ciclo</th>
                         <th>Dia</th>
@@ -51,7 +54,7 @@
                      @foreach($horarios as $horario)
                         @if($horario->estado == 1)
                         <tr>
-                            <td>{{$horario->id}}</td>
+
                             <td>{{$horario->laboratorio->nombre}}</td>
                             <td>{{$horario->ciclo->año."-0".$horario->ciclo->nciclo}}</td>
                             <td>{{$horario['dia']}}</td>
@@ -83,7 +86,7 @@
                             <div class="card-body">
                                 <span class="text-center soft-tittle bg-dark">Software Disponible</span>
                                 <p class="text-justify mt-5 text-dark">
-                        @foreach($soft_lab->softwares as $obj)
+                        @foreach($laboratorio->softwares as $obj)
                                 {{$obj->nombre}}//
                         @endforeach
                                 </p>

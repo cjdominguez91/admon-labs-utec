@@ -61,8 +61,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //$clave = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 20);
-        $clave = 'Admin123';
+        $clave = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 20);
+        //$clave = 'Admin123';
         $nombre = $data['nombres']." ".$data['apellidos'];
         $datamsg = ['nombre' => $nombre, 'email' => $data['email'], 'clave' => $clave];
         $user = User::create([

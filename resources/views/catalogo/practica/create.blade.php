@@ -78,7 +78,7 @@
 
                     <div class="form-group" align="center">
                         <button type="submit" class="btn btn-success">Aceptar</button>
-                        <a href="{{url('catalogo/practica')}}"><button type="button" class="btn btn-primary">Cancelar</button></a>
+                        <a href="{{url('practicas',$id)}}"><button type="button" class="btn btn-primary">Cancelar</button></a>
                     </div>
 
                 </form>
@@ -114,7 +114,7 @@
                         _select += '<option value="' + data[i].id + '">' + data[i].hora.horario + '</option>';
                     }
                     if (_select == '') {
-                        var _select = '<option value="">No hay libres</option>';
+                        var _select = '<option value="">No hay practicas libres</option>';
                     }
 
                     $("#id_horas_clase").html(_select);

@@ -1,9 +1,9 @@
-<div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="modal-delete-{{$practica->id ?? ''}}">
-	{{Form::Open(array('action'=>array('catalogo\CarreraController@destroy',$practica->id ?? ''),'method'=>'delete'))}}
+<div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="modal-delete-{{$practica->id}}">
+	{{Form::Open(array('action'=>array('catalogo\PracticaController@destroy',$practica->id),'method'=>'delete'))}}
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-			
+			<input type="hidden" name="laboratorio" value="{{$horario->laboratorio->id}}">
 				<h4 class="modal-title">Eliminar registro</h4>
 			</div>
 			<div class="modal-body">

@@ -267,7 +267,8 @@ class horarioControler extends Controller
 
     public function getHorarios($id, $dia){
         //Definir el id de Materia Practica Libre
-        return Horario::with('hora')->where([['laboratorio_id', '=', $id],['dia', '=', $dia]])->get();
+        return Horario::with('hora')
+        ->where([['laboratorio_id', $id],['dia', $dia],['materia_id',6]])->get();
 
     }
 
@@ -495,6 +496,7 @@ class horarioControler extends Controller
 
         echo $resp;
     }
+
 
 
     public function quitarSoftware($id)

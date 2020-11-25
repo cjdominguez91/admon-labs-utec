@@ -174,7 +174,7 @@ ul ul a {
 .container-fluid {
     width: 80%;
     margin-top:125px;
-    margin-bottom: 125px;
+    margin-bottom: 300px;
 }
 
 h1  {
@@ -198,7 +198,6 @@ table {
 }
 
 footer{
-  margin-top: 400px;
   background:  #5A1533;
   text-align: center;
   margin: 0px;

@@ -44,6 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new Notifications\MailResetPasswordNotification($token));
+    }
+
     public function usersRoles()
     {
         return $this->belongsToMany('App\Role','model_has_roles','model_id');

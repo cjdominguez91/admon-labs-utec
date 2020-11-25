@@ -1,6 +1,9 @@
   @extends('layouts.main')
   @section('content')
   <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
   <div>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <a class="nav-item nav-link active" id="nav-labs-tab" data-toggle="tab" href="#nav-labs" role="tab" aria-controls="nav-labs" aria-selected="true">Laboratorios</a>
@@ -56,16 +59,12 @@
           <input type="button" class="btn btn-outline-dark" value="Buscar" id="btnBuscar">
 
         </div>
-
-
-
-
       </div>
       <div class="row" id='body'>
         @foreach($laboratorios as $laboratorio)
         <div class="col-md-3 col-sm-12 mt-5">
           <div class="card">
-          <img src="img/laboratorios/{{$laboratorio->imagen}}" class="card-img-top" alt="...">
+          <a href="{{route('single',$laboratorio->id)}}"><img src="img/laboratorios/{{$laboratorio->imagen}}" class="card-img-top" width="317" height="180" alt="..."></a>
             <div class="card-body card-body-labs">
               <h5 class="card-title">{{$laboratorio->nombre}}</h5>
               <p class="card-text">{{Str::limit($laboratorio->ubicacion, 25)}}.</p>
@@ -77,49 +76,37 @@
       </div>
     </div>
     <div class="tab-pane fade" id="nav-schedules" role="tabpanel" aria-labelledby="nav-schedules-tab">
-
-    <table class="table table-sm text-center my-5">
-                    <thead class="text-light">
-                        <th>Id</th>
-                        <th>Laboratorio</th>
-                        <th>Ciclo</th>
-                        <th>Dia</th>
-                        <th>Horario</th>
-                        <th>Materia</th>
-                        <th>Seminarios</th>
-                    </thead>
-                    <tbody>
-                   
-                    </tbody>
-                </table>
-
-
-
-
-
-
-
-
-
-
+      <br>  
+    <table class="table table-sm text-center my-5 mt" id="tbl">
+        <thead class="text-light">
+            <th>Id</th>
+            <th>Laboratorio</th>
+            <th>Ciclo</th>
+            <th>Dia</th>
+            <th>Horario</th>
+            <th>Tipo</th>
+            <th>Alertas</th>
+        </thead>
+        <tbody id="tblHorario">
+          <tr>
+            <td>id</td>
+            <td>laboratorio</td>
+            <td>ciclo</td>
+            <td>dia</td>
+            <td>horario</td>
+            <td>materia.nombre</td>
+            <td>alerta_seminarios</td>
+          </tr>
+        </tbody>
+    </table>
     </div>
-
-
-
-
-
     @include('sweet::alert')
-
-
-
-
     <!-- jQuery -->
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-
-
-
     <script type="text/javascript">
+      var table = $('#tbl').DataTable();
       $(document).ready(function() {
+        
+       
       //combo para Filtro
         $("#Filtro1").change(function() {
             // var para la Filtro1                            
@@ -193,7 +180,7 @@
                   for (var i = 0; i < laboratorios.length; i++)
                   _select += '<div class="col-md-3 col-sm-12 mt-5">'
                                  +'<div class="card" name="body" id="body">'
-                                 +'<img src="img/laboratorios/'+laboratorios[i].imagen+'" class="card-img-top" alt="...">'
+                                 +'<a href="/single/'+laboratorios[i].laboratorio_id+'"><img src="img/laboratorios/'+laboratorios[i].imagen+'" class="card-img-top" alt="..."></a>'
                                  +'<div class="card-body card-body-labs">'
                                  +'<h5 class="card-title">'+laboratorios[i].nombre+'</h5>'
                                  +'<p class="card-text">'+laboratorios[i].ubicacion+'.</p>'
@@ -202,12 +189,30 @@
                                  +'</div>'
                                  +'</div>';
                 }
+                else if(tipo == 3){
+                  laboratorios.forEach(function(data) {
+                    data.laboratorios.forEach(function(lab) {
+                    _select += `
+                       <div class="col-md-3 col-sm-12 mt-5">
+                         <div class="card" name="body" id="body">
+                           <a href="/single/${lab.laboratorio_id}"><img src="img/laboratorios/${lab.imagen}" class="card-img-top" alt="..."></a>
+                             <div class="card-body card-body-labs">
+                               <h5 class="card-title">${lab.nombre}</h5>
+                               <p class="card-text">${lab.ubicacion}.</p>
+                               <a href="/single/${lab.laboratorio_id}" class="btn btn btn-outline-light">Ver información</a>
+                             </div>
+                         </div>
+                       </div>
+                     `;
+                     });
+                 });
+                }
                 else
                 {
                 for (var i = 0; i < laboratorios.length; i++)
                   _select += '<div class="col-md-3 col-sm-12 mt-5">'
                                  +'<div class="card" name="body" id="body">'
-                                 +'<img src="img/laboratorios/'+laboratorios[i].imagen+'" class="card-img-top" alt="...">'
+                                 +'<a href="/single/'+laboratorios[i].id+'"><img src="img/laboratorios/'+laboratorios[i].imagen+'" class="card-img-top" alt="..."></a>'
                                  +'<div class="card-body card-body-labs">'
                                  +'<h5 class="card-title">'+laboratorios[i].nombre+'</h5>'
                                  +'<p class="card-text">'+laboratorios[i].ubicacion+'.</p>'
@@ -218,13 +223,44 @@
                 }
                 $("#body").html(_select);
 
-              })
-              
+              })   
         });
-        $('.horarios').click(function(){
-          
-        })
       });
+
+    $('.horarios').click(function(){
+         table.destroy();
+             $.ajax({
+             url: '/horarios',
+             method: 'GET',
+             success: function(response){ 
+               var template = '';
+               response.forEach(function(data) {
+                  template += `
+                     <tr>
+                       <td>${data.id}</td>
+                       <td>${data.laboratorio.nombre}</td>
+                       <td>${data.ciclo.codigo}</td>
+                       <td>${data.dia}</td>
+                       <td>${data.hora.horario}</td>
+                       <td>${data.materia.nombre}</td>
+                       <td>${data.alerta_seminarios}</td>
+                     </tr>
+                   `;
+               });
+               $('#tblHorario').html(template);
+               table = $('#tbl').DataTable({
+                  "language": {
+                                  "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                              },
+               }
+                );
+             }
+         });
+
+       });
+
+    
+
     </script>
   </div>
   @endsection
