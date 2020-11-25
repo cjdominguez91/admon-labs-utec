@@ -11,7 +11,8 @@ class RolePermissionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware( 'auth' );
+        $this->middleware('auth');
+        $this->middleware('firstlogin');
     }
 
     public function add_permiso(Request $request)

@@ -19,19 +19,19 @@
             <ul class="list-unstyled components">
                 <p class="text-center">Menu principal</p>
                 <li>
-                    <a href="#"><i class="fas fa-home ml-3"></i> Home</a>
+                <a href="{{url('/home')}}"><i class="fas fa-home ml-3"></i> Home</a>
                 </li>
                 <li>
                     <a href="#"><i class="fas fa-users ml-3"></i> Mi Cuenta</a>
                 </li>
                 <li>
-                    <a href="catalogo/horario"><i class="fas fa-network-wired ml-3"></i> Mi Laboratorio</a>
+                <a href="{{url('catalogo/horario')}}"><i class="fas fa-calendar-alt ml-3"></i> Horarios</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-book-reader ml-3"></i> Practicas Libres</a>
+                    <a href="{{url('/mylabs')}}"><i class="fas fa-book-reader ml-3"></i>Mis Laboratorio</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-chart-pie ml-3"></i> Reportes</a>
+                    <a href="{{url('reporte/reporte')}}"><i class="fas fa-chart-pie ml-3"></i> Reportes</a>
                 </li>
                 <li>
                     <a href="{{ route('logout') }}"

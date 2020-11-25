@@ -17,13 +17,15 @@ class SoftwareController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('firstlogin');
     }
     public function index(Request $request)
     {
 
         if ($request) {
             if (auth()->user()->can('read software')) {
-                $softwares = Software::get();
+                $softwares = Software::orderBy('id','Desc')->paginate(2);
+                
                 // dd($es);
 
                 return view('catalogo.software.index', ["softwares" => $softwares]);

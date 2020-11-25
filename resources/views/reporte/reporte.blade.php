@@ -18,8 +18,8 @@
 
             <div class="x_content">
                 <br />
- 
-                <form class="form-horizontal" method="POST" action="../reporte/reporte_aceptar" target="_blank">
+
+                <form class="form-horizontal" method="POST" action="../reporte/reporte_aceptar">
                     {{Form::token()}}
                     <br>
 
@@ -28,9 +28,9 @@
                         <div class="col-md-6">
                             <select class="form-control" id="reporte" name="reporte">
 
-                                <option value="1">Carrera más utilizado</option>
-                                <option value="2">Horario más utilizado</option>
-                                <option value="3">Laboratorio más utilizado</option>
+                                <option value="1">CARRERAS CON MAS PRACTICAS LIBRES</option>
+                                <option value="2">HORARIOS  MÁS FRECUENTADOS</option>
+                                <option value="3">LABORATORIOS  MÁS VISITADOS</option>
 
                             </select>
 
@@ -59,18 +59,20 @@
 
 
                     <div class="form-group" align="center">
-                        <button type="submit" class="btn btn-success">Aceptar</button>
-                        <a href="{{url('catalogo/practica')}}"><button type="button" class="btn btn-primary">Cancelar</button></a>
+                        <button type="submit" class="btn btn-success">Generar Reporte</button>
+
                     </div>
 
                 </form>
 
 
             </div>
- 
+
         </div>
     </div>
-
+    
+    
+    
 
 
 

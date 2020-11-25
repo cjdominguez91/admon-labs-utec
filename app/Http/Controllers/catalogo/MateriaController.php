@@ -15,13 +15,15 @@ class MateriaController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
+        $this->middleware('firstlogin');
     }
     public function index(Request $request)
     {
 
         if ($request) {
             if (auth()->user()->can('read software')) {
-            $materias = Materia::get();
+            $materias = Materia::orderBy('id','Desc')->paginate(4);
            // dd($materias);
             return view('catalogo.materia.index', ["materias" => $materias]);
         } else {

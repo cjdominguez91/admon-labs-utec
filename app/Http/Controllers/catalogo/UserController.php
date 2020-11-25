@@ -13,6 +13,11 @@ use Carbon\Carbon;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('firstlogin');
+    }
     /**
      * Display a listing of the resource.
      *

@@ -66,6 +66,6 @@
         	@endforeach
         </tbody>    
     </table>
-    {{$softwares->links()}}
+    {{$softwares->render()}}
 </div>  
 @endsection

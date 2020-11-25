@@ -15,6 +15,7 @@ class HorasClasesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('firstlogin');
     }
 
     public function getHorasClases($id) {

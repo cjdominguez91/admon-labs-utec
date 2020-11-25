@@ -8,6 +8,8 @@ use App\catalogo\Practica;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\catalogo\Horario;
+use App\catalogo\LaboratorioSoftware;
+use App\catalogo\Software;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +31,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/test', function () {
-   return  Laboratorio::join('horario', 'laboratorio.id', '=', 'horario.laboratorio_id')->where([['dia', 'Viernes'], ['materia_id',6], ['hora_id', 2]])->get();
+   
+   $laboratorios = Software::with('laboratorios')->where('nombre','VISUAL STUDIO 2016')->get(); 
+       
+    return $laboratorios;
 });
 
 Route::resource('software','SoftwareController');
@@ -72,8 +77,14 @@ Route::delete('quitarSoftware/{id_s}/{id_l}', 'catalogo\HorarioControler@quitarS
 Route::put('catalogo/setciclo/{id}', 'catalogo\CicloController@setCiclo');
 Route::get('catalogo/ciclos', 'catalogo\CicloController@getCiclos')->name('ciclos');
 
-Route::resource('reporte/reporte', 'reporte\HorarioController');
-Route::post('reporte/reporte_aceptar', 'reporte\HorarioController@reporte_aceptar');
+
+
+
+Route::resource('reporte/reporte', 'reporte\ReporteController');
+Route::post('reporte/reporte_aceptar', 'reporte\ReporteController@reporte_aceptar');
+
+
+
 
 Route::get('catalogo/filtro/{id}', 'catalogo\FiltroController@getData');
 Route::get('catalogo/filtros/{tipo}/{par1}/{par2}', 'catalogo\FiltroController@filtrado');
