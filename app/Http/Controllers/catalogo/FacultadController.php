@@ -17,13 +17,16 @@ class FacultadController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('firstlogin');
     }
     public function index(Request $request)
     {
 
         if ($request) {
             if (auth()->user()->can('read facultades')) {
-                $facultades = Facultad::get();
+               
+                $facultades = Facultad::orderBy('id','Desc')->paginate(2);
+               
                 // dd($facultades);
 
                 return view('catalogo.facultad.index', ["facultades" => $facultades]);

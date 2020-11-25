@@ -44,6 +44,7 @@
     </table>
     @include('sweet::alert')
 </div>
+{{$facultades->render()}}
 <!-- fin del main -->
 
 

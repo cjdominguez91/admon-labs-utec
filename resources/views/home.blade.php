@@ -109,12 +109,12 @@
        
       //combo para Filtro
         $("#Filtro1").change(function() {
-            // var para la Filtro1                            
-            var Filtro1 = $(this).val();
+          // var para la Filtro1                            
+          var Filtro1 = $(this).val();
 
-            //console.log(Filtro1+" "+laboratorio);
+          //console.log(Filtro1+" "+laboratorio);
 
-            //funcionpara las Filtro
+          //funcionpara las Filtro
           switch (Filtro1) {
             case '1':
               $('#flt2').attr('hidden', true);
@@ -123,7 +123,7 @@
                 console.log(data);
                 var _select = '<option value="">Seleccionar</option>'
                 for (var i = 0; i < data.length; i++)
-                  _select += '<option value="' + data[i].ubicacion + '">' + data[i].ubicacion  + '</option>';
+                  _select += '<option value="' + data[i].ubicacion + '">' + data[i].ubicacion + '</option>';
 
                 $("#Filtro3").html(_select);
 
@@ -136,26 +136,26 @@
                 console.log(data);
                 var _select = '<option value="">Seleccionar</option>'
                 for (var i = 0; i < data.length; i++)
-                  _select += '<option value="' + data[i].id + '">' + data[i].horario  + '</option>';
+                  _select += '<option value="' + data[i].id + '">' + data[i].horario + '</option>';
 
                 $("#Filtro3").html(_select);
               })
 
               break;
-              case '3':
-                $('#flt2').attr('hidden', true);
-                $.get('catalogo/filtro/' + Filtro1, function(data) {
-                    //esta el la peticion, la cual se divide en tres partes. ruta,variables y funcion
-                    console.log(data);
-                    var _select = '<option value="">Seleccionar</option>'
-                    for (var i = 0; i < data.length; i++)
-                      _select += '<option value="' + data[i].id + '">' + data[i].nombre + '</option>';
+            case '3':
+              $('#flt2').attr('hidden', true);
+              $.get('catalogo/filtro/' + Filtro1, function(data) {
+                //esta el la peticion, la cual se divide en tres partes. ruta,variables y funcion
+                console.log(data);
+                var _select = '<option value="">Seleccionar</option>'
+                for (var i = 0; i < data.length; i++)
+                  _select += '<option value="' + data[i].id + '">' + data[i].nombre + '</option>';
 
-                    $("#Filtro3").html(_select);
+                $("#Filtro3").html(_select);
 
-                  })
+              })
               break;
-          
+
             default:
               $('#flt2').attr('hidden', true);
               break;
@@ -204,26 +204,33 @@
                          </div>
                        </div>
                      `;
-                     });
-                 });
-                }
-                else
-                {
-                for (var i = 0; i < laboratorios.length; i++)
-                  _select += '<div class="col-md-3 col-sm-12 mt-5">'
-                                 +'<div class="card" name="body" id="body">'
-                                 +'<a href="/single/'+laboratorios[i].id+'"><img src="img/laboratorios/'+laboratorios[i].imagen+'" class="card-img-top" alt="..."></a>'
-                                 +'<div class="card-body card-body-labs">'
-                                 +'<h5 class="card-title">'+laboratorios[i].nombre+'</h5>'
-                                 +'<p class="card-text">'+laboratorios[i].ubicacion+'.</p>'
-                                 +'<a href="/single/'+laboratorios[i].id+'" class="btn btn btn-outline-light">Ver información</a>'
-                                 +'</div>'
-                                 +'</div>'
-                                 +'</div>';
-                }
-                $("#body").html(_select);
+                });
+              });
+            } else {
+              for (var i = 0; i < laboratorios.length; i++)
+                _select += '<div class="col-md-3 col-sm-12 mt-5">' +
+                '<div class="card" name="body" id="body">' +
+                '<img src="img/laboratorios/' + laboratorios[i].imagen + '" class="card-img-top" alt="...">' +
+                '<div class="card-body card-body-labs">' +
+                '<h5 class="card-title">' + laboratorios[i].nombre + '</h5>' +
+                '<p class="card-text">' + laboratorios[i].ubicacion + '.</p>' +
+                '<a href="/single/' + laboratorios[i].id + '" class="btn btn btn-outline-light">Ver información</a>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+            }
 
-              })   
+
+             if(_select == '') {
+              _select = `
+                  <div class='col-12 text-center mt-4'>
+                    No se generaron resultados de su busqueda
+                 </div> `;
+            }
+
+            $("#body").html(_select);
+
+          })
         });
       });
 

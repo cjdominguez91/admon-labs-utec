@@ -47,8 +47,10 @@
 
         </tbody>
     </table>
+ 
     @include('sweet::alert')
 </div>
+{{$laboratorios->render()}}
 <!-- fin del main -->
 
 

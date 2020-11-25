@@ -15,6 +15,7 @@ use DB;
 
 class FiltroController extends Controller
 {
+    
 
     public function filtroPorhorario($horario)
     {
@@ -50,13 +51,10 @@ class FiltroController extends Controller
             $data =  DB::table('horas_clases')->distinct()->get(); 
         }
         else if ($id == 3) {
-            $data =  DB::table('horas_clases')->distinct()->get();            
+            $data =   $data =  DB::table('software')->distinct()->get();           
 
         }
-        else  if ($id == 4) {
-            $data =  DB::table('software')->distinct()->get();
-           
-        }
+
         return $data;
     }
    
@@ -70,12 +68,11 @@ class FiltroController extends Controller
                 $laboratorios =  Laboratorio::join('horario', 'laboratorio.id', '=', 'horario.laboratorio_id')->where([['dia', $par2], ['materia_id',6], ['hora_id', $par1]])->get();
             break ;
             case '3':
-                
-                $laboratorios =  Laboratorio::join('horario', 'laboratorio.id', '=', 'horario.laboratorio_id')->where([['hora_id', $par1],['materia_id',6]])->get();
+                $laboratorios = Software::with('laboratorios')->where('id', $par1)->get();
             break ;
-
             
         }
+        
        
         return $laboratorios;
     }

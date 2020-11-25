@@ -43,6 +43,7 @@
     </table>
     @include('sweet::alert')
 </div>
+{{$materias->render()}}
 <!-- fin del main -->
 
 

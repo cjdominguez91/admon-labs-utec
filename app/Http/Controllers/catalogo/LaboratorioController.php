@@ -22,12 +22,13 @@ class LaboratorioController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('firstlogin');
     }
     public function index(Request $request)
     {
         if ($request) {
             if (auth()->user()->can('read laboratorios')) {
-            $laboratorios = Laboratorio::get();
+            $laboratorios = Laboratorio::orderBy('id','Desc')->paginate(5);   
             return view('catalogo.laboratorio.index', ["laboratorios" => $laboratorios]);
            // dd($materias);
            

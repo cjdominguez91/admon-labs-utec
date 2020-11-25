@@ -32,7 +32,7 @@ class CarreraController extends Controller
 
             if (auth()->user()->can('read carreras')) {
                 $query=trim($request->get('searchText'));
-            $carreras = Carrera::with('facultades')->where('nombre','LIKE','%'.$query.'%')->paginate(10);
+            $carreras = Carrera::with('facultades')->where('nombre','LIKE','%'.$query.'%')->paginate(3);
             // dd($carreras);
             return view('catalogo.carrera.index', ["carreras" => $carreras,"searchText"=>$query]);
         } else {

@@ -20,6 +20,7 @@ class PracticaController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('firstlogin');
     }
     public function index(Request $request)
     {
