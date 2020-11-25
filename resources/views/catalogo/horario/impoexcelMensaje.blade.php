@@ -1,5 +1,7 @@
-@extends ('sidebar.superadmin')
-@section ('contenido')
+@extends ('layouts.app')
+@section ('content')
+
+
 <script src="{{asset('js/sweetalert/sweetalert.min.js')}}"></script>
 
 <div class="row mt-5">
@@ -13,13 +15,6 @@
 
 
 
-
-
-
-
-
-
-
     <!-- Registro horas -->
     @if(empty($horasEdit))
     <div class="card" id="cardRegistrar">
@@ -27,7 +22,7 @@
         <div class="card-body">
             <?php echo $mensaje; ?>
             <hr>
-            <a href="{{ url('catalogo/horario') }}" class="btn btn-info">
+            <a href="{{ url('custom/'.$laboratorio) }}" class="btn btn-info">
                 Regresar
             </a>
         </div>

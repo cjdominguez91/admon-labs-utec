@@ -53,21 +53,7 @@
             <form>
             <div class="row ">
 
-                <div class="col-2">Ciclo:
-                    <select required class="form-control @error('ciclo') is-invalid @enderror" name="ciclo" id="ciclo" value="{{ old('ciclo') }}">
-                        <option value="">Elige Ciclo-</option>
-                        @foreach($ciclos as $obj)
-                            <option value="{{$obj->id}}">
-                                {{$obj->año."-0".$obj->nciclo}}
-                            </option>
-                        @endforeach
-                    </select>
-                      @error('ciclo')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                      @enderror
-                </div>
+                <input hidden name="ciclo" id="ciclo" value="{{ $ciclos->id }}">
 
                 <div class="col-2">Dia:
                     <select required class="form-control @error('dia') is-invalid @enderror" name="dia" id="dia" value="{{ old('dia') }}">
@@ -149,7 +135,7 @@
         <div class="card-body">
             <div class="row ">
                 <div class="col-3 ">
-                    <a href="{{URL::action('catalogo\HorarioControler@exportarExcel')}}" type="button" class="btn btn-outline-secondary">
+                    <a href="{{ route('expoexcel', $id_lab) }}" type="button" class="btn btn-outline-secondary">
                         Descarga de plantilla
                         <svg width="1em" height="1em" viewBox="0 0 16 16"
                             class="bi bi-file-earmark-arrow-down-fill" fill="currentColor"
@@ -196,26 +182,7 @@
                 <form>
                     <div class="row ">
 
-                        <div class="col-2">Ciclo:
-                            <select class="form-control @error('ciclo') is-invalid @enderror" name="ciclo" id="ciclo" value="{{ old('ciclo') }}">
-                                @foreach($ciclos as $obj)
-                                    @if($obj->id == $horariosEdit->ciclo_id)
-                                        <option value="{{$obj->id}}" selected>
-                                            {{$obj->año."-0".$obj->nciclo}}
-                                        </option>
-                                    @else
-                                        <option value="{{$obj->id}}">
-                                            {{$obj->año."-0".$obj->nciclo}}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                              @error('ciclo')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                              @enderror
-                        </div>
+                        <input hidden name="ciclo" id="ciclo" value="{{ $ciclos->id }}">
 
                         <div class="col-2">Dia:
                             <select class="form-control @error('dia') is-invalid @enderror" name="dia" id="dia" value="{{ old('dia') }}">
@@ -292,23 +259,22 @@
                         </div>
 
                         <div class="col-3">Alerta Seminario:
-                            <input class="form-control" name="alerta_seminarios" type="text" value="{{$horariosEdit->alerta_seminarios}}" onblur="this.value = this.value.toUpperCase();">
+                            <input class="form-control" name="alerta_seminarios" type="date" value="{{$horariosEdit->alerta_seminarios}}" onblur="this.value = this.value.toUpperCase();">
                         </div>
 
                         <input type="hidden" name="laboratorio" id="laboratorio" value="{{$id_lab}}">
-                         <input type="hidden" name="estado" id="estado" value="{{$horariosEdit->estado}}">
+                        <input type="hidden" name="estado" id="estado" value="{{$horariosEdit->estado}}">
 
                     </div>
                     <div class="row mt-4">
                         <div class="col-5">
                             <input type="submit" class="btn btn-info" value="Guardar">
-                            <a type="button" class="btn btn-danger ml-2" href="{{ url('/catalogo/horario') }}"
+                            <a type="button" class="btn btn-danger ml-2" href="{{ url('custom/'.$id_lab) }}"
                             >Cancelar</a>
                         </div>
                     </div>
                 </form>
-             </div>
-            
+            </div>
         </div>
     @endif
 
@@ -334,13 +300,12 @@
                 Seminarios
             </div>
         </div>
-        <h4 class="mt-4 text-center">HORARIOS ESTABLECIDOS PARA EL CICLO 01-2021</h4>
+        <h4 class="mt-4 text-center">HORARIOS ESTABLECIDOS PARA EL CICLO {{$ciclos->codigo}}</h4>
 
         </a>
         <hr>
         <table class="table table-sm text-center my-5">
             <thead class="text-light">
-                <th>#</th>
                 <th>Laboratorio</th>
                 <th>Ciclo</th>
                 <th>Dia</th>
@@ -353,7 +318,6 @@
             @foreach($horarios as $horario)
             @if($horario->estado == 1)
                 <tr>
-                    <td>{{$horario->id}}</td>
                     <td>{{$horario->laboratorio->nombre}}</td>
                     <td>{{$horario->ciclo->año."-0".$horario->ciclo->nciclo}}</td>
                     <td>{{$horario['dia']}}</td>
@@ -367,16 +331,17 @@
                     </td>
                     <td>
                         @if($horario->alerta_seminarios!="")
-                            <span class="badge badge-danger">Alerta Seminarios</span>
-                            <br>{{$horario['alerta_seminarios']}}
+                            <span class="badge badge-danger">
+                                Seminario: {{$horario['alerta_seminarios']}}
+                            </span>
                         @endif  
                     </td>
                     <td align="center">
-                        <a href="{{URL::action('catalogo\HorarioController@edit',$horario->id)}}"
+                        <a href="{{url('catalogo/horario', ['idh' => $horario->id, 'idl' => $id_lab])}}"
                             class="on-default edit-row"><i class="fa fa-pencil fa-lg"></i>
                         </a>
                         &nbsp;&nbsp;
-                            <a href="" data-target="#modal-delete-{{$horario->id}}" data-toggle="modal"><i
+                            <a href="" data-target="#modal-delete-{{$horario->id}}-{{$id_lab}}" data-toggle="modal"><i
                             class="fa fa-trash fa-lg"></i></a>
                     </td>
                     <td></td>

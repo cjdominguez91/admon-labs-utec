@@ -157,4 +157,5 @@ class LaboratorioController extends Controller
         $laboratorios = $users->laboratorios;
         return view('catalogo.laboratorio.mylab', ["laboratorios" => $laboratorios]);
     }
+
 }

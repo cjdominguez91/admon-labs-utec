@@ -25,15 +25,15 @@ Route::get('/','HomeController@index');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
-
 Route::get('/test', function () {
-   return  Laboratorio::join('horario', 'laboratorio.id', '=', 'horario.laboratorio_id')->where([['dia', 'Viernes'], ['materia_id',6], ['hora_id', 2]])->get();
+
+	$laboratorio = Laboratorio::FindOrFail(10); 
+
+	return $laboratorio->nombre;
+
 });
 
 Route::resource('software','SoftwareController');
-
 
 //catalogos
 Route::resource('catalogo/permission', 'catalogo\PermissionController');
@@ -56,26 +56,30 @@ Route::get('/single/{id}', 'HomeController@single')->name('single');
 Route::get('/confirmation', 'catalogo\UserController@firstLogin')->name('confirmation');
 Route::put('/end-register/{id}', 'catalogo\UserController@setPass')->name('end-register');
 Route::post('catalogo/carrera/add_materia', 'catalogo\CarreraController@add_materia');
-Route::resource('catalogo/horario', 'catalogo\HorarioController');
+
 Route::post('catalogo/rol/add_permiso', 'catalogo\RolePermissionController@add_permiso');
 Route::post('catalogo/roles/delete_permiso', 'catalogo\RolePermissionController@delete_permiso');
 Route::resource('catalogo/horas', 'catalogo\HoraControler');
 //para combos
 Route::get('catalogo/horarios/{id}/{dia}', 'catalogo\HorarioControler@getHorarios');
-Route::get('catalogo/expoexcel', 'catalogo\HorarioControler@exportarExcel');
-Route::post('catalogo/impoexcel', 'catalogo\HorarioControler@importarExcel');
-Route::post('catalogo/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
+//Route::get('catalogo/expoexcel', 'catalogo\HorarioControler@exportarExcel');
+//Route::post('catalogo/impoexcel', 'catalogo\HorarioControler@importarExcel');
+
 Route::post('catalogo/{id}/{dia}/infoLab', 'catalogo\HorarioControler@actualizarInfoLab');
 Route::get('catalogo/agregarSoftware', 'catalogo\HorarioControler@agregarSoftware');
 //Route::post('catalogo/quitarSoftware', 'catalogo\HorarioControler@quitarSoftware');
 Route::delete('quitarSoftware/{id_s}/{id_l}', 'catalogo\HorarioControler@quitarSoftware');
 Route::put('catalogo/setciclo/{id}', 'catalogo\CicloController@setCiclo');
 Route::get('catalogo/ciclos', 'catalogo\CicloController@getCiclos')->name('ciclos');
-
 Route::resource('reporte/reporte', 'reporte\HorarioController');
 Route::post('reporte/reporte_aceptar', 'reporte\HorarioController@reporte_aceptar');
-
 Route::get('catalogo/filtro/{id}', 'catalogo\FiltroController@getData');
 Route::get('catalogo/filtros/{tipo}/{par1}/{par2}', 'catalogo\FiltroController@filtrado');
+Route::resource('catalogo/horario', 'catalogo\HorarioControler');
+Route::get('custom/{id}', 'catalogo\HorarioControler@showCustom')->name('custom');
+Route::get('expoexcel/{id}', 'catalogo\HorarioControler@exportarExcel')->name('expoexcel');
+Route::post('custom/impoexcel', 'catalogo\HorarioControler@importarExcel');
 
+Route::get('catalogo/horario/{idh}/{idl}', 'catalogo\HorarioControler@edit');
+Route::PATCH('infoLab', 'catalogo\HorarioControler@actualizarInfoLab')->name('infoLab');
 

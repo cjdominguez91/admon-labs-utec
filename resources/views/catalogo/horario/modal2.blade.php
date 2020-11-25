@@ -9,7 +9,8 @@
       </div>
       <div class="modal-body">
 
-        <form method="POST" action="infoLab" accept-charset="UTF-8" enctype="multipart/form-data">
+        <form method="POST" action="{{route('infoLab')}}" accept-charset="UTF-8" enctype="multipart/form-data">
+            @method('PATCH')
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
           <input type="text" hidden name="id" value="{{$id_lab}}" id="id_lab">
@@ -28,6 +29,7 @@
         <br>Agrega softwares de Laboratorios:
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <select class="form-control" id="listSoftware" name="listSoftware" required>
+
           @foreach($software as $obj)
             <option value="{{$obj->id}}">{{$obj->nombre}}</option>
           @endforeach
@@ -36,8 +38,9 @@
             +Agregar Software
         </button> 
 
-        <label id="respuesta" name="respuesta" >
+        <hr>
 
+        <label id="respuesta" name="respuesta" >
           @foreach($lab_soft->softwares as $obj)
                   {{$obj->nombre}}
                   <a href="#" onclick="EliminarSoft( '{{$obj->id}}', '{{$id_lab}}' )"><i class="fa fa-trash fa-lg"></i></a>//

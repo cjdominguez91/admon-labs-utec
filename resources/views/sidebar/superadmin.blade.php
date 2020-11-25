@@ -46,7 +46,7 @@
                     <a href="{{url('catalogo/horas')}}"><i class="fas fa-calendar-alt ml-3"></i> Horas Clase</a>
                 </li>
                 <li>
-                    <a href="{{url('catalogo/horario')}}"><i class="fas fa-calendar-alt ml-3"></i> Horarios</a>
+                    <a href="{{url('mylabs')}}"><i class="fas fa-calendar-alt ml-3"></i> Mis Laboratorios</a>
                 </li>
                 <li>
                     <a href="{{url('catalogo/practica')}}"><i class="fas fa-folder-open ml-3"></i> Practicas Libres</a>

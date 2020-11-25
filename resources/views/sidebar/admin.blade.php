@@ -25,10 +25,7 @@
                     <a href="#"><i class="fas fa-users ml-3"></i> Mi Cuenta</a>
                 </li>
                 <li>
-                    <a href="catalogo/horario"><i class="fas fa-network-wired ml-3"></i> Mi Laboratorio</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fas fa-book-reader ml-3"></i> Practicas Libres</a>
+                    <a href="{{url('mylabs')}}"><i class="fas fa-calendar-alt ml-3"></i> Mis Laboratorios</a>
                 </li>
                 <li>
                     <a href="#"><i class="fas fa-chart-pie ml-3"></i> Reportes</a>

@@ -9,7 +9,6 @@
 <!-- Inicio del main -->
 
 <div class="row my-5">
-<<<<<<< HEAD
         <a href="{{route('practica',$id)}}">
             <button class="btn btn-dark ml-auto d-flex align-items-end" id="btnAgregarUser">
                 Agregar Nueva Practica &nbsp <span class="material-icons m-0 p-0"> add_circle_outline </span>
@@ -50,7 +49,6 @@
                     @endforeach
                 @endforeach
                 @include('catalogo.practica.modal')
-=======
     @if(empty($idLab) && $rol == 'administrador')
     <h4>No posee un laboratorio asignado</h4>
     @else
@@ -100,9 +98,6 @@
             @endforeach
             @endif
 
-
-
->>>>>>> reportes
         </tbody>
     </table>
 {{$horarios->links()}}

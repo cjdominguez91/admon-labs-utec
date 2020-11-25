@@ -19,7 +19,7 @@
                 <td style="vertical-align: middle">{{$laboratorio->id}}</td>
                 <td style="vertical-align: middle">{{$laboratorio->nombre}}</td>
                 <td align="center">
-                    <a href="" class="btn btn-dark btn-sm mx-1">Horarios</a>
+                    <a href="{{ route('custom', $laboratorio->id) }}" class="btn btn-dark btn-sm mx-1">Horarios</a>
                     <a href="{{ route('practicas', $laboratorio->id) }}" class="btn btn-secondary  btn-sm mx-1">Practicas</a>
                 </td>
             </tr> 
